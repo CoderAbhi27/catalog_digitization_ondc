@@ -10,6 +10,6 @@ class AddCatalog extends StatefulWidget {
 class _AddCatalogState extends State<AddCatalog> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Text('add');
   }
 }

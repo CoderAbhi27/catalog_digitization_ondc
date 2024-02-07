@@ -10,6 +10,6 @@ class MyShop extends StatefulWidget {
 class _MyShopState extends State<MyShop> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Text('my shop');
   }
 }
