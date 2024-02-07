@@ -185,6 +185,8 @@ class _SignUpState extends State<SignUp> {
         password: pass,
       );
       displaySnackBar('Sign up successful');
+      Navigator.pushReplacementNamed(context, '/register');
+
 
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

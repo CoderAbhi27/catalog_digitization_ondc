@@ -1,6 +1,7 @@
 import 'package:catalog_digitization_ondc/pages/category_catalog.dart';
 import 'package:catalog_digitization_ondc/pages/get_started.dart';
 import 'package:catalog_digitization_ondc/pages/home.dart';
+import 'package:catalog_digitization_ondc/pages/register.dart';
 import 'package:catalog_digitization_ondc/pages/sign_in.dart';
 import 'package:catalog_digitization_ondc/pages/sign_up.dart';
 import 'package:flutter/material.dart';
@@ -16,14 +17,15 @@ void main() async {
   );
   runApp(MaterialApp(
     // home: Home(),
-    // initialRoute: '/get_started',
-    initialRoute: '/home',
+    initialRoute: '/get_started',
+    // initialRoute: '/home',
     routes: {
       '/home' : (context) => Home(),
       '/get_started' : (context) => GetStarted(),
       '/sign_in' : (context) => SignIn(),
       '/sign_up' : (context) => SignUp(),
       '/categortyCataloge':(context) => CategoryCatalog(),
+      '/register':(context) => Register(),
     },
     debugShowCheckedModeBanner: false,
   ));
