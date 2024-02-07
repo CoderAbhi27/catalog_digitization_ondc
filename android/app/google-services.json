@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "555755108862",
+    "project_id": "catalog-digitization-ebc51",
+    "storage_bucket": "catalog-digitization-ebc51.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:555755108862:android:1d72cc5edfe5cf355168af",
+        "android_client_info": {
+          "package_name": "com.example.catalog_digitization_ondc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaqQyiMTmDqbObvJwZfbh0hjXMT4-Qw6s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
