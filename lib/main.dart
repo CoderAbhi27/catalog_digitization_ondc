@@ -15,8 +15,8 @@ void main() async {
   );
   runApp(MaterialApp(
     // home: Home(),
-    // initialRoute: '/get_started',
-    initialRoute: '/home',
+    initialRoute: '/get_started',
+    // initialRoute: '/home',
     routes: {
       '/home' : (context) => Home(),
       '/get_started' : (context) => GetStarted(),
