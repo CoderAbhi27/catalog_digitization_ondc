@@ -1,27 +1,22 @@
-// import 'dart:html';
+import 'dart:html';
 
-import 'dart:io';
-
-// import 'package:catalog_digitization_ondc/data_class/profile_data_class.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../widgets/my_text_field.dart';
+class Result extends StatefulWidget {
 
+  const Result({super.key});
 
-class Register extends StatefulWidget {
-  const Register({super.key});
 
   @override
-  State<Register> createState() => _RegisterState();
+  State<Result> createState() => _ResultState();
 }
 
-class _RegisterState extends State<Register> {
-
+class _ResultState extends State<Result> {
   var nameController = TextEditingController();
   var shopNameController = TextEditingController();
   var merchantIDController = TextEditingController();
@@ -36,25 +31,8 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     double baseWidth = 390;
     double fem = MediaQuery.of(context).size.width / baseWidth;
-    // double ffem = fem * 0.97;
-
     return Scaffold(
-      appBar: AppBar(
-        title: Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.all(10),
-            child: const Text(
-              'ONDC',
-              style: TextStyle(
-                  color: Colors.blue,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 30),
-            )),
-        centerTitle: true,
-        backgroundColor: Colors.grey[850],
-      ),
-      backgroundColor: Colors.grey[800],
-      body: Padding(
+      body:  Padding(
           padding: const EdgeInsets.all(10),
           child: ListView(
             children: <Widget>[
@@ -72,7 +50,7 @@ class _RegisterState extends State<Register> {
                   )),
               InkWell(
                 onTap: () async{
-                  await getImage();
+                 // await getImage();
                   await addImageToFirebase();
                   setState(() {
 
@@ -118,13 +96,11 @@ class _RegisterState extends State<Register> {
       ),
     );
   }
-
-
-  Future<void> getImage() async{
-    final imagePick = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if(imagePick==null) return;
-    _image = File(imagePick.path);
-  }
+  // Future<void> getImage() async{
+  //   final imagePick = await ImagePicker().pickImage(source: ImageSource.gallery);
+  //   if(imagePick==null) return;
+  //   _image = File(imagePick.path);
+  // }
 
   Future<void> addImageToFirebase() async{
 
@@ -135,7 +111,7 @@ class _RegisterState extends State<Register> {
 
     try{
       print(ref);
-      final storageTaskSnapshot = await ref.putFile(_image);
+   //   final storageTaskSnapshot = await ref.putFile(_image);
       imgUrl = await ref.getDownloadURL();
       print(ref);
     } catch (e){
@@ -175,5 +151,3 @@ class _RegisterState extends State<Register> {
     ScaffoldMessenger.of(context).showSnackBar(snackdemo);
   }
 }
-
-
