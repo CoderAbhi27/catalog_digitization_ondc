@@ -45,6 +45,9 @@ dependencies:
   firebase_storage: ^11.6.5
   image_picker: ^1.0.7
   speech_to_text: ^6.6.0
+  firebase_ml_model_downloader: ^0.2.4+13
+  tflite_flutter: ^0.10.4
+  image: ^3.0.1
 
 dev_dependencies:
   flutter_test:
