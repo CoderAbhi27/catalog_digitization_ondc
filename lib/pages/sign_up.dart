@@ -175,6 +175,10 @@ class _SignUpState extends State<SignUp> {
   }
 
   Future<void> signUp(String email, String pass, String confirmPass) async {
+    if(email.isEmpty || pass.isEmpty || confirmPass.isEmpty){
+      displaySnackBar('Please fill all the fields!');
+      return;
+    }
     if(pass!=confirmPass){
       displaySnackBar('Passwords does not match!');
       return;
