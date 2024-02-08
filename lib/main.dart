@@ -25,7 +25,7 @@ void main() async {
   runApp(MaterialApp(
     // home: Home(),
     initialRoute: loggedIn ? '/home' : '/get_started',
-    // initialRoute: '/speech',
+     //initialRoute: '/home',
 
     routes: {
       '/home' : (context) => Home(),
