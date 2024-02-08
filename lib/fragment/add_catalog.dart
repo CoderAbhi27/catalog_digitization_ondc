@@ -17,8 +17,8 @@ class _AddCatalogState extends State<AddCatalog> {
   late CameraDescription firstCamera;
   Future<void> getData() async
   {
-    // Ensure that plugin services are initialized so that `availableCameras()`
-    // can be called before `runApp()`
+    // Ensure that plugin services are initialized so that availableCameras()
+    // can be called before runApp()
     WidgetsFlutterBinding.ensureInitialized();
 
     // Obtain a list of the available cameras on the device.
@@ -93,7 +93,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Take a picture')),
+      appBar: AppBar(title: Center(child: const Text('Scan your product'))),
       // You must wait until the controller is initialized before displaying the
       // camera preview. Use a FutureBuilder to display a loading spinner until the
       // controller has finished initializing.
@@ -119,7 +119,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             // Ensure that the camera is initialized.
             await _initializeControllerFuture;
 
-            // Attempt to take a picture and get the file `image`
+            // Attempt to take a picture and get the file image
             // where it was saved.
             final image = await _controller.takePicture();
 
@@ -155,22 +155,22 @@ class DisplayPictureScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Display the Picture')),
-      // The image is stored as a file on the device. Use the `Image.file`
+      appBar: AppBar(title: const Text('Verify the image')),
+      // The image is stored as a file on the device. Use the Image.file
       // constructor with the given path to display the image.
       body: Center(
         child: Column(children:
         [
           Expanded(
               flex:6,
-        child: Image.file(File(imagePath))),
+              child: Image.file(File(imagePath))),
           Expanded(
             flex: 1,
             child: Container(
                 height: 20,
                 padding: const EdgeInsets.fromLTRB(10, 30.0, 10, 20),
                 child: ElevatedButton(
-                  child: const Text('Verify the Image', style: TextStyle(fontSize: 20.0)),
+                  child: const Text('CONFIRM', style: TextStyle(fontSize: 20.0)),
                   onPressed: () {
                     Navigator.pushReplacementNamed(context, '/category_catalog', arguments: {
                       'imagePath' : imagePath,

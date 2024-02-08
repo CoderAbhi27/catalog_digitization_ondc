@@ -1,9 +1,13 @@
 import 'dart:io';
 
+import 'package:catalog_digitization_ondc/widgets/loading_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:speech_to_text/speech_recognition_result.dart';
+import 'package:speech_to_text/speech_to_text.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class AddItemForm extends StatefulWidget {
   const AddItemForm({super.key});
@@ -13,6 +17,11 @@ class AddItemForm extends StatefulWidget {
 }
 
 class _AddItemFormState extends State<AddItemForm> {
+
+  final stt.SpeechToText _speechToText = stt.SpeechToText();
+  bool _speechEnabled = false;
+  String _lastWords = '';
+
   Map data={};
       // SKU id,
       // Brand,
@@ -111,24 +120,6 @@ class _AddItemFormState extends State<AddItemForm> {
   }
 
 
-/*  Future<void> addImageToFirebase() async{
-
-    String fileName = DateTime.now().microsecondsSinceEpoch.toString();
-
-    //CreateRefernce to path.
-    final ref = storageReference.child("profile/$fileName");
-
-    try{
-      print(ref);
-      //   final storageTaskSnapshot = await ref.putFile(_image);
-      imgUrl = await ref.getDownloadURL();
-      print(ref);
-    } catch (e){
-      displaySnackBar('Failed to upload image!');
-    }
-
-  }*/
-
 
 
   void uploadItem(Map data) {
@@ -175,9 +166,103 @@ class _AddItemFormState extends State<AddItemForm> {
           // icon: Icon(Icons.person),
           iconColor: Colors.white,
           labelStyle: TextStyle(color: Colors.white),
+          suffixIcon: IconButton(icon: Icon(Icons.mic), onPressed: () {
+            showDialog(context: context, builder: (context){
+              _initSpeech();
+              return AlertDialog(
+                title: Text('Speak...'),
+                content:  Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          padding: EdgeInsets.all(4),
+                          child: Text(
+                            'Tap the microphone for listening...',
+                            style: TextStyle(fontSize: 20.0),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          child: Text(
+                            // If listening is active show the recognized words
+                            _speechToText.isListening
+                                ? '$_lastWords'
+                            // If listening isn't active but could be tell the user
+                            // how to start it, otherwise indicate that speech
+                            // recognition is not yet ready or not supported on
+                            // the target device
+                                : _speechEnabled
+                                ? '$_lastWords'
+                                : 'Speech not available',
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                actions: <Widget>[
+                  // TextButton(
+                  //   onPressed: () => Navigator.pop(context, 'Cancel'),
+                  //   child: const Text('Cancel'),
+                  // ),
+                  IconButton(
+                    onPressed:
+                    // If not yet listening for speech start, otherwise stop
+                    _speechToText.isNotListening ? _startListening : _stopListening,
+                    tooltip: 'Listen',
+                    icon: Icon(_speechToText.isNotListening ? Icons.mic_off : Icons.mic),
+                  ),
+
+                  TextButton(
+                    onPressed: () => Navigator.pop(context,{'title':'$_lastWords'}),
+                    child: const Text('OK'),
+                  ),
+                ],
+
+              );
+            });
+          },),
+          suffixIconColor: Colors.white
 
         ),
       ),
     );
+  }
+
+
+  void _initSpeech() async {
+    //_speechToText.toString();
+    _speechEnabled = await _speechToText.initialize();
+    setState(() {});
+  }
+
+  /// Each time to start a speech recognition session
+  void _startListening() async {
+
+    await _speechToText.listen(onResult: _onSpeechResult);
+    setState(() {});
+  }
+
+  /// Manually stop the active speech recognition session
+  /// Note that there are also timeouts that each platform enforces
+  /// and the SpeechToText plugin supports setting timeouts on the
+  /// listen method.
+  void _stopListening() async {
+    await _speechToText.stop();
+    setState(() {});
+  }
+
+  /// This is the callback that the SpeechToText plugin calls when
+  /// the platform returns recognized words.
+  void _onSpeechResult(SpeechRecognitionResult result) {
+    setState(() {
+      _lastWords = result.recognizedWords;
+    });
   }
 }
