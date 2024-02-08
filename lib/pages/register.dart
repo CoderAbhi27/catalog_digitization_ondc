@@ -10,6 +10,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../widgets/my_text_field.dart';
+
 
 class Register extends StatefulWidget {
   const Register({super.key});

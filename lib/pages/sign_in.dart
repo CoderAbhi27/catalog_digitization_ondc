@@ -159,6 +159,10 @@ class _SignInState extends State<SignIn> {
   }
 
   Future<void> signIn(String email, String pass) async {
+    if(email.isEmpty || pass.isEmpty){
+      displaySnackBar('Please fill all the fields!');
+      return;
+    }
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email,
