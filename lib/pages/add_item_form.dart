@@ -101,7 +101,7 @@ class _AddItemFormState extends State<AddItemForm> {
                         'category': categoryController.text,
                         'color': colorController.text,
                         'weight': weightController.text,
-                        'inventory count': countController.text,
+                        'inventory_count': countController.text,
                         'description': descController.text,
                         'imgPath' : data['imagePath'],
                       };

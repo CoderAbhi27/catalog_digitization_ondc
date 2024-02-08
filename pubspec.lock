@@ -576,6 +576,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.1"
+  simple_knn:
+    dependency: "direct main"
+    description:
+      name: simple_knn
+      sha256: "06680b9f8eaec1055d5a58c98ae2326539bc31bc1b365d8e8fb8de6bbf928343"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   sky_engine:
     dependency: transitive
     description: flutter

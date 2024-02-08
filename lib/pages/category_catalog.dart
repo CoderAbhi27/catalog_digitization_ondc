@@ -1,10 +1,14 @@
+import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io';
 import 'dart:ui';
+import 'package:flutter/services.dart';
 import 'package:tflite_flutter/tflite_flutter.dart' as tfl;
 //import 'package:firebase_ml_model_downloader/firebase_ml_model_downloader.dart';
 import 'package:flutter/material.dart';
 import 'package:tflite_flutter/tflite_flutter_platform_interface.dart';
+import "package:simple_knn/simple_knn.dart";
+// import 'data.dart';
 
 import 'package:image/image.dart' as img;
 
@@ -60,7 +64,7 @@ class _CategoryCatalogState extends State<CategoryCatalog> {
    List<List<List<List<double>>>> imageArray = await getImageArray(image);
 
    // Use the image array as needed
-   print(imageArray);
+   // print(imageArray);
     // For ex: if input tensor shape [1,5] and type is float32
     var input = imageArray;
 
@@ -71,9 +75,11 @@ class _CategoryCatalogState extends State<CategoryCatalog> {
     interpreter.run(input, output);
 
 // print the output
-    print(output);
+    print(output.shape);
 
-    getActualData(output);
+
+    await getActualData(output[0] as List<double>);
+    print("loda");
 
   //  final isolateInterpreter = await tfl.IsolateInterpreter.create(address: interpreter.address);
     // await Future.delayed(Duration(seconds: 2), (){
@@ -104,9 +110,9 @@ class _CategoryCatalogState extends State<CategoryCatalog> {
       List<List<double>> row = [];
       for (int x = 0; x < image.width; x++) {
         int pixel = image.getPixel(x, y);
-        double red = (img.getRed(pixel) / 255.0);
-        double green = (img.getGreen(pixel) / 255.0);
-        double blue = (img.getBlue(pixel) / 255.0);
+        double red = (img.getRed(pixel)).toDouble();
+        double green = (img.getGreen(pixel)).toDouble();
+        double blue = (img.getBlue(pixel)).toDouble();
         row.add([red, green, blue]);
       }
       batch.add(row);
@@ -133,7 +139,49 @@ class _CategoryCatalogState extends State<CategoryCatalog> {
     );
   }
 
-  void getActualData(List output) {
+  Future<List<List>> readJson() async {
+
+    final String response = await rootBundle.loadString('assets/jsonfile.json');
+    final data = await json.decode(response);
+    List<List> lst=[];
+    data.forEach((k, v) => lst.add(v));
+    return lst;
+
+    // _items = data["items"];
+  }
+
+  Future<void> getActualData(List output) async {
+    var dataSet = await readJson();
+
+    print('output - ${output}');
+    print('dataset shape ${dataSet.shape}');
+
+    List<Pair> skus=[];
+
+    for(int i=0;i<dataSet.length;i++){
+      double d=0;
+      for(int j=0;j<output.length;j++){
+        d+=(dataSet[i][j]-output[j])*(dataSet[i][j]-output[j]);
+      }
+      skus.add(Pair(d, i));
+    }
+
+    skus.sort((a, b) => a.dist.compareTo(b.dist));
+    
+    for(int i=0;i<5;i++){
+      int ind = skus[i].index;
+      print(ind);
+      // dataList.add();
+    }
 
   }
+
+
+
+}
+
+class Pair {
+  final double dist;
+  final int index;
+  Pair(this.dist, this.index);
 }

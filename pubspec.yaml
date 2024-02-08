@@ -48,6 +48,7 @@ dependencies:
   firebase_ml_model_downloader: ^0.2.4+13
   tflite_flutter: ^0.10.4
   image: ^3.0.1
+  simple_knn: ^0.0.3
 
 dev_dependencies:
   flutter_test:
