@@ -69,7 +69,7 @@ class _MyShopState extends State<MyShop> {
           // Generate 100 widgets that display their index in the List.
           children: categories.map((item){
             return CategoryCard(category: item, icon:categoryImages['$item'], onClick: (){
-              Navigator.pushNamed(context, '/categortyCataloge', arguments: {
+              Navigator.pushNamed(context, '/my_catalog', arguments: {
                 'data' :item,
               });
             });

@@ -63,10 +63,10 @@ class _RegisterState extends State<Register> {
                   margin: EdgeInsets.only(top: fem*30, bottom: fem*20),
                   alignment: Alignment.center,
                   padding: const EdgeInsets.all(10),
-                  child: const Text(
+                  child: Text(
                     'Register your shop',
                     style: TextStyle(
-                      fontSize: 40,
+                      fontSize: 32*fem,
                       color: Colors.white,
                     ),
                   )),

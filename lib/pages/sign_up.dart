@@ -16,6 +16,7 @@ class _SignUpState extends State<SignUp> {
   bool hidePassword = true;
   bool hideConfirmPassword = true;
 
+
   @override
   Widget build(BuildContext context) {
     double baseWidth = 390;

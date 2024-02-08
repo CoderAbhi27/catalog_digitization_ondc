@@ -172,7 +172,10 @@ class DisplayPictureScreen extends StatelessWidget {
                 child: ElevatedButton(
                   child: const Text('Verify the Image', style: TextStyle(fontSize: 20.0)),
                   onPressed: () {
-        
+                    Navigator.pushReplacementNamed(context, '/category_catalog', arguments: {
+                      'imagePath' : imagePath,
+                    }
+                    );
                   },
                 )
             ),

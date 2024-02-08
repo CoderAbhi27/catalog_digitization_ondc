@@ -1,11 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class GetStarted extends StatelessWidget {
+
+class GetStarted extends StatefulWidget {
   const GetStarted({super.key});
 
   @override
+  State<GetStarted> createState() => _GetStartedState();
+}
+
+class _GetStartedState extends State<GetStarted> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+
+  }
+
+  @override
   Widget build(BuildContext context) {
+
     double baseWidth = 390;
     double screen_height = MediaQuery.of(context).size.height;
     double fem = MediaQuery.of(context).size.width / baseWidth;
