@@ -109,7 +109,8 @@ class TakePictureScreenState extends State<TakePictureScreen> {
           }
         },
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
+        label: Text('Capture Image'),
         // Provide an onPressed callback.
         onPressed: () async {
           // Take the Picture in a try / catch block. If anything goes wrong,
@@ -139,7 +140,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             print(e);
           }
         },
-        child: const Icon(Icons.camera_alt),
+        icon: const Icon(Icons.camera_alt),
       ),
     );
   }
@@ -157,7 +158,26 @@ class DisplayPictureScreen extends StatelessWidget {
       appBar: AppBar(title: const Text('Display the Picture')),
       // The image is stored as a file on the device. Use the `Image.file`
       // constructor with the given path to display the image.
-      body: Image.file(File(imagePath)),
+      body: Center(
+        child: Column(children:
+        [
+          Expanded(
+              flex:6,
+        child: Image.file(File(imagePath))),
+          Expanded(
+            flex: 1,
+            child: Container(
+                height: 20,
+                padding: const EdgeInsets.fromLTRB(10, 30.0, 10, 20),
+                child: ElevatedButton(
+                  child: const Text('Verify the Image', style: TextStyle(fontSize: 20.0)),
+                  onPressed: () {
+        
+                  },
+                )
+            ),
+          ),] ),
+      ),
     );
   }
 }
