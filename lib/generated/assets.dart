@@ -3,5 +3,23 @@ class Assets {
   Assets._();
 
   static const String assetsBackground = 'assets/background.png';
+  static const String assetsConfectionery = 'assets/Property 1=Confectionery.png';
+  static const String assetsHome_Fragrance = 'assets/Property 1=Home Fragrance.png';
+  static const String baby_care = 'assets/Property 1=baby care.png';
+  static const String beverage = 'assets/Property 1=beverage.png';
+  static const String desserts = 'assets/Property 1=desserts.png';
+  static const String diary = 'assets/Property 1=diary.png';
+  static const String fashion = 'assets/Property 1=fashion.png';
+  static const String fragnence = 'assets/Property 1=fragnence.png';
+  static const String grocery = 'assets/Property 1=grocery.png';
+  static const String handwash = 'assets/Property 1=handwash.png';
+  static const String meat = 'assets/Property 1=meat.png';
+  static const String medicine = 'assets/Property 1=medicine.png';
+  static const String milk_2 = 'assets/Property 1=milk 2.png';
+  static const String pooja = 'assets/Property 1=pooja.png';
+  static const String snacks = 'assets/Property 1=snacks.png';
+  static const String stationary = 'assets/Property 1=stationary.png';
+  static const String toothpaste = 'assets/Property 1=toothpaste.png';
+  static const String vegetable = 'assets/Property 1=vegetable.png';
 
 }
