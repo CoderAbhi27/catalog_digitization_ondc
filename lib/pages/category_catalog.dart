@@ -82,13 +82,13 @@ class _CategoryCatalogState extends State<CategoryCatalog> {
     print("loda");
 
   //  final isolateInterpreter = await tfl.IsolateInterpreter.create(address: interpreter.address);
-    // await Future.delayed(Duration(seconds: 2), (){
-    // });
-    // dataList = [
-    //   {'brand' : 'loda'},
-    //   {},
-    //   {},
-    // ];
+    await Future.delayed(Duration(seconds: 2), (){
+    });
+    dataList = [
+      {'brand' : 'loda'},
+      {},
+      {},
+    ];
     
     setState(() {
 

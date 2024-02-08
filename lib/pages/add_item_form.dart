@@ -94,7 +94,7 @@ class _AddItemFormState extends State<AddItemForm> {
                     child: const Text('REGISTER', style: TextStyle(fontSize: 20.0)),
                     onPressed: () {
                       Map newData = {
-                        'skuId' : skuIdController,
+                        'skuId' : skuIdController.text,
                         'productName': nameController.text,
                         'brand': brandController.text,
                         'price': priceController.text,
@@ -105,6 +105,7 @@ class _AddItemFormState extends State<AddItemForm> {
                         'description': descController.text,
                         'imgPath' : data['imagePath'],
                       };
+                      print('data - $newData');
                       // final data = ProfileDataClass(merchantName: nameController.text, shopName: shopNameController.text, merchantID: merchantIDController.text, shopAddress: shopAddressController.text, profilePicUrl: imgUrl);
                       uploadItem(newData);
                       // String pass = passwordController.text;
@@ -123,6 +124,10 @@ class _AddItemFormState extends State<AddItemForm> {
 
 
   void uploadItem(Map data) {
+    if(data['category']==''){
+      displaySnackBar('Please fill in all the mandatory fields!');
+      return;
+    }
     // print(data.shopName);
     String? uid = FirebaseAuth.instance.currentUser?.uid;
     if(uid==null){
@@ -131,7 +136,7 @@ class _AddItemFormState extends State<AddItemForm> {
     }
     final dbref = FirebaseDatabase.instance.ref('inventory');
     try{
-      dbref.child(uid).set(data);
+      dbref.child(uid).child(data['category']).set(data);
       displaySnackBar('Registered successfully!');
       Navigator.pushReplacementNamed(context, '/home');
     } catch(e){
