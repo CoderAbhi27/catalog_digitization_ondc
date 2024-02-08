@@ -4,6 +4,7 @@ import 'package:catalog_digitization_ondc/pages/home.dart';
 import 'package:catalog_digitization_ondc/pages/register.dart';
 import 'package:catalog_digitization_ondc/pages/sign_in.dart';
 import 'package:catalog_digitization_ondc/pages/sign_up.dart';
+import 'package:catalog_digitization_ondc/widgets/speechToText.dart';
 import 'package:flutter/material.dart';
 
 //firebase
@@ -17,8 +18,9 @@ void main() async {
   );
   runApp(MaterialApp(
     // home: Home(),
-    initialRoute: '/get_started',
-    // initialRoute: '/home',
+    // initialRoute: '/get_started',
+    initialRoute: '/speech',
+
     routes: {
       '/home' : (context) => Home(),
       '/get_started' : (context) => GetStarted(),
@@ -26,6 +28,7 @@ void main() async {
       '/sign_up' : (context) => SignUp(),
       '/categortyCataloge':(context) => CategoryCatalog(),
       '/register':(context) => Register(),
+      '/speech':(context) => SpeechToText(),
     },
     debugShowCheckedModeBanner: false,
   ));

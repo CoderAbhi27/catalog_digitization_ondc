@@ -50,57 +50,64 @@ class _SpeechToTextState extends State<SpeechToText> {
   }
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text('Speak...'),
-      content:  Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(16),
-              child: Text(
-                'Recognized words:',
-                style: TextStyle(fontSize: 20.0),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.all(16),
-                child: Text(
-                  // If listening is active show the recognized words
-                  _speechToText.isListening
-                      ? '$_lastWords'
-                  // If listening isn't active but could be tell the user
-                  // how to start it, otherwise indicate that speech
-                  // recognition is not yet ready or not supported on
-                  // the target device
-                      : _speechEnabled
-                      ? 'Tap the microphone to start listening...'
-                      : 'Speech not available',
+    return Card(
+      child: AlertDialog(
+          title: Text('Speak...'),
+          content:  Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    padding: EdgeInsets.all(4),
+                    child: Text(
+                      'Tap the microphone for listening...',
+                      style: TextStyle(fontSize: 20.0),
+                    ),
+                  ),
                 ),
-              ),
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      // If listening is active show the recognized words
+                      _speechToText.isListening
+                          ? '$_lastWords'
+                      // If listening isn't active but could be tell the user
+                      // how to start it, otherwise indicate that speech
+                      // recognition is not yet ready or not supported on
+                      // the target device
+                          : _speechEnabled
+                          ? '$_lastWords'
+                          : 'Speech not available',
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            // TextButton(
+            //   onPressed: () => Navigator.pop(context, 'Cancel'),
+            //   child: const Text('Cancel'),
+            // ),
+              IconButton(
+        onPressed:
+        // If not yet listening for speech start, otherwise stop
+        _speechToText.isNotListening ? _startListening : _stopListening,
+          tooltip: 'Listen',
+          icon: Icon(_speechToText.isNotListening ? Icons.mic_off : Icons.mic),
+        ),
+
+            TextButton(
+              onPressed: () => Navigator.pop(context,{'title':'$_lastWords'}),
+              child: const Text('OK'),
             ),
           ],
-        ),
-      ),
-      actions: <Widget>[
-        // TextButton(
-        //   onPressed: () => Navigator.pop(context, 'Cancel'),
-        //   child: const Text('Cancel'),
-        // ),
-          IconButton(
-    onPressed:
-    // If not yet listening for speech start, otherwise stop
-    _speechToText.isNotListening ? _startListening : _stopListening,
-      tooltip: 'Listen',
-      icon: Icon(_speechToText.isNotListening ? Icons.mic_off : Icons.mic),
-    ),
 
-        TextButton(
-          onPressed: () => Navigator.pop(context,{'title':'$_lastWords'}),
-          child: const Text('OK'),
-        ),
-      ],
+      ),
     );
   }
 }
