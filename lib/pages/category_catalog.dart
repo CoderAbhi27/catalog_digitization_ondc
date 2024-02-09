@@ -72,7 +72,7 @@ class _CategoryCatalogState extends State<CategoryCatalog> {
                   flex: 2,
                   child: CircleAvatar(
                     radius: 50,
-                    backgroundImage: FileImage(File(imagePath)),
+                    backgroundImage: AssetImage('dataset_images/${data['image']}'),
                   ),
                 ),
                 Expanded(

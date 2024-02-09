@@ -25,6 +25,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
+  be_widgets:
+    dependency: "direct main"
+    description:
+      name: be_widgets
+      sha256: "26b1fe9b71a6f8bb59f525f50394cc3797308522d9e9b84dcc77154bfd1e8d7c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.3"
   boolean_selector:
     dependency: transitive
     description:

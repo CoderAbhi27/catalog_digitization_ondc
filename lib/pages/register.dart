@@ -3,6 +3,7 @@
 import 'dart:io';
 
 // import 'package:catalog_digitization_ondc/data_class/profile_data_class.dart';
+import 'package:be_widgets/be_widgets.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -70,24 +71,42 @@ class _RegisterState extends State<Register> {
                       color: Colors.white,
                     ),
                   )),
-              InkWell(
-                onTap: () async{
-                  await getImage();
-                  await addImageToFirebase();
-                  setState(() {
+              // InkWell(
+              //   onTap: () async{
+              //     await getImage();
+              //     await addImageToFirebase();
+              //     setState(() {
+              //
+              //     });
+              //   },
+              Container(
+                margin: EdgeInsets.fromLTRB(0,0,0,30.0),
+                child: BeLabel(
 
-                  });
-                },
-                child: CircleAvatar(
-                  radius: fem*80,
-                  backgroundImage: NetworkImage(imgUrl),
-                  child: Image.network(
-                    imgUrl,
-                    fit: BoxFit.fill,
+                  child: CircleAvatar(
+                    radius: fem*80,
+                    backgroundImage: NetworkImage(imgUrl),
+                    child: Image.network(
+                      imgUrl,
+                      fit: BoxFit.fill,
+                    ),
+
                   ),
+                  label: ElevatedButton(onPressed: () async {
+                    await getImage();
+                    await addImageToFirebase();
+                    setState(() {
 
+                    });
+                  }
+                      , child: Icon(Icons.add), ),
+                  position: BeLabelPosition.bottomCenter,
+                  offset: Offset(0.0,-20.0) ,
+                  childSized: false,
+                  innerLabel: false,
                 ),
               ),
+             // ),
               MyTextField('Merchant name', nameController),
               MyTextField('Shop name', shopNameController),
               MyTextField('Merchant ID', merchantIDController),
