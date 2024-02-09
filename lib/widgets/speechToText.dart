@@ -103,7 +103,7 @@ class _SpeechToTextState extends State<SpeechToText> {
       ),
 
           TextButton(
-            onPressed: () => Navigator.pop(context,{'title':'$_lastWords'}),
+            onPressed: () => Navigator.pop(context,{'text':'$_lastWords'}),
             child: const Text('OK'),
           ),
         ],

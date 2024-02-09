@@ -1,18 +1,9 @@
-import 'dart:convert';
-import 'dart:ffi';
 import 'dart:io';
-import 'dart:ui';
+
 import 'package:catalog_digitization_ondc/ML/image_detection.dart';
-import 'package:flutter/services.dart';
-import 'package:tflite_flutter/tflite_flutter.dart' as tfl;
+
 //import 'package:firebase_ml_model_downloader/firebase_ml_model_downloader.dart';
 import 'package:flutter/material.dart';
-import 'package:tflite_flutter/tflite_flutter_platform_interface.dart';
-import "package:simple_knn/simple_knn.dart";
-// import 'data.dart';
-
-import 'package:image/image.dart' as img;
-
 
 import '../widgets/loading_widget.dart';
 
@@ -24,19 +15,17 @@ class CategoryCatalog extends StatefulWidget {
 }
 
 class _CategoryCatalogState extends State<CategoryCatalog> {
+  String imagePath = '';
+  List<Map> dataList = [];
 
-  String imagePath='';
-  List<Map> dataList=[];
-  
   @override
   Widget build(BuildContext context) {
-
-    if(dataList.isEmpty){
-      imagePath = (ModalRoute.of(context)?.settings.arguments as Map)['imagePath'];
+    if (dataList.isEmpty) {
+      imagePath =
+          (ModalRoute.of(context)?.settings.arguments as Map)['imagePath'];
       getData(File(imagePath));
       return LoadingWidget();
-    }
-    else {
+    } else {
       return Scaffold(
         appBar: AppBar(
           title: Text('Select your Product'),
@@ -47,30 +36,80 @@ class _CategoryCatalogState extends State<CategoryCatalog> {
           margin: EdgeInsets.all(10.0),
           child: ListView.builder(
             itemCount: dataList.length,
-            itemBuilder: (context, index){
+            itemBuilder: (context, index) {
               return myCard(dataList[index]);
             },
           ),
         ),
-        
       );
     }
   }
 
   Widget myCard(Map data) {
     return InkWell(
-      onTap: (){
+      onTap: () {
         data['imagePath'] = imagePath;
         Navigator.pushNamed(context, '/add_item_form', arguments: data);
       },
       child: Card(
-        child: SizedBox(
-          height: 100.0,
-          width: double.infinity,
-        ),
-        color: Colors.grey[900],
-      ),
+          margin: EdgeInsets.all(15),
+          clipBehavior: Clip.antiAlias,
+          shadowColor: Colors.amber,
+          elevation: 10,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          child: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+              colors: [Colors.indigo, Colors.black12],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            )),
+            padding: EdgeInsets.all(12.0),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: CircleAvatar(
+                    radius: 50,
+                    backgroundImage: FileImage(File(imagePath)),
+                  ),
+                ),
+                Expanded(
+                    flex: 4,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          row("SKU ID    ", data['id'].toString()),
+                          row("Name      ", data['name']),
+                          // row("Brand      ","Kellogs"),
+                          row("Price       ", data['price'].toString()),
+                          row("Category", data['Category']),
+                          // row("Color       ","Red"),
+                          // row("Weight    ","10 g"),
+                          // row("Count      ","8")
+                        ]
+                    )
+                )
+              ],
+            ),
+          )),
+    );
+  }
 
+  Widget row(String a, String b) {
+    return Row(
+      children: [
+        Text(
+          '$a',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        Padding(padding: EdgeInsets.all(5)),
+        Text(':'),
+        Padding(padding: EdgeInsets.all(5)),
+        Text('$b'),
+      ],
     );
   }
 
@@ -81,12 +120,10 @@ class _CategoryCatalogState extends State<CategoryCatalog> {
     print(ob.features.length);
     dataList = await ob.predictionList();
     print(dataList);
-    setState(() {
-
-    });
+    setState(() {});
   }
 
-  /*Future<void> getData(File image) async {
+/*Future<void> getData(File image) async {
     //get data from ML model using image File
    final interpreter = await tfl.Interpreter.fromAsset('assets/resnet50.tflite');
    // final interpreter = await Interpreter.fromAsset('resnet50.tflite');
@@ -119,7 +156,7 @@ class _CategoryCatalogState extends State<CategoryCatalog> {
       {},
       {},
     ];
-    
+
     setState(() {
 
     });
@@ -182,7 +219,7 @@ class _CategoryCatalogState extends State<CategoryCatalog> {
     }
 
     skus.sort((a, b) => a.dist.compareTo(b.dist));
-    
+
     for(int i=0;i<5;i++){
       int ind = skus[i].index;
       print(ind);
@@ -190,9 +227,6 @@ class _CategoryCatalogState extends State<CategoryCatalog> {
     }
 
   }*/
-
-
-
 }
 
 /*class Pair {
