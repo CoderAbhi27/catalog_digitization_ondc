@@ -43,7 +43,7 @@ class _AddItemFormState extends State<AddItemForm> {
   var descController = TextEditingController();
 
   List<String> list = <String>[
-    "(Blank)",
+    "Other",
     "Beverages",
     "Snacks",
     "Desserts",
@@ -54,14 +54,14 @@ class _AddItemFormState extends State<AddItemForm> {
     "Confectionery",
     "Stationery",
     "Personal Care",
-    "Cardamom & Tulsi Toothpaste",
+    "Dental Care",
     "Handwash",
     "Baby Care",
     "Health",
     "Home Fragrance",
     "Meat",
-    "N/A",
-    "Personal_Care",
+    // "N/A",
+    // "Personal_Care",
     "Pooja",
   ];
 
@@ -139,11 +139,11 @@ class _AddItemFormState extends State<AddItemForm> {
               // myTextField('SKU ID', skuIdController, data['id'].toString()),
               // myTextField('Category', categoryController, data['Category']),
               myTextField('Product name', nameController, data['name']),
-              myTextField('Brand', brandController, data['brand']),
+              myTextField('Brand', brandController, data['Brand Name']),
               myTextField(
                   'Price (₹)', priceController, data['price'].toString(),
                   onlyNum: true),
-              myTextField('Color', colorController, data['color']),
+              myTextField('Color', colorController, data['Color']),
               myTextField('Weight (gm)', weightController, data['weight'],
                   onlyNum: true),
               myTextField('Inventory count', countController, null,

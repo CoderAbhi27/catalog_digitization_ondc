@@ -21,7 +21,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      /*appBar: AppBar(
         title: Center(
           child : Text('ONDC',
           style: TextStyle(
@@ -51,7 +51,7 @@ class _HomeState extends State<Home> {
         ],
         backgroundColor: Colors.grey[850],
 
-      ),
+      ),*/
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         onTap: (index){

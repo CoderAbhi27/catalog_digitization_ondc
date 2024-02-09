@@ -16,7 +16,7 @@ class _CategoryCardState extends State<CategoryCard> {
     return InkWell(
       onTap: widget.onClick,
       child: Container(
-        height: 100.0,
+        height: 120.0,
         child: Card(
           elevation: 10.0,
           shadowColor: Colors.grey[800],
@@ -45,19 +45,25 @@ class _CategoryCardState extends State<CategoryCard> {
                     ),
                   ),
                   Expanded(
-                    flex: 1,
+                    // flex: 1,
                     child: Container(
                       padding: EdgeInsets.all(4.5),
                       // margin: EdgeInsets.all(10.0),
                       alignment: Alignment.center,
                       child: Text(widget.category,
                         textAlign: TextAlign.center,
-                        textScaleFactor: 0.8, // Set your desired scale factor
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+
+                        textScaleFactor: 0.9, // Set your desired scale factor
                         overflow: TextOverflow.ellipsis,
                         maxLines: 3,
                       ),
                     ),
                   ),
+                  SizedBox(height: 10,),
                 ],
               ),
             ),

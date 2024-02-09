@@ -27,14 +27,17 @@ class _SignUpState extends State<SignUp> {
       appBar: AppBar(
         title: Container(
             alignment: Alignment.center,
-            padding: const EdgeInsets.all(10),
-            child: const Text(
-              'ONDC',
-              style: TextStyle(
-                  color: Colors.blue,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 30),
-            )),
+            margin: const EdgeInsets.all(10),
+
+            child: Image.asset('assets/ondc_icon.png'),
+            // child: const Text(
+            //   'ONDC',
+            //   style: TextStyle(
+            //       color: Colors.blue,
+            //       fontWeight: FontWeight.w500,
+            //       fontSize: 30),
+            // ),
+        ),
         centerTitle: true,
         backgroundColor: Colors.grey[850],
       ),
@@ -184,25 +187,49 @@ class _SignUpState extends State<SignUp> {
       displaySnackBar('Passwords does not match!');
       return;
     }
+    showLoaderDialog(context);
     try {
       final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: pass,
       );
+      Navigator.pop(context);
       displaySnackBar('Sign up successful');
       Navigator.pushReplacementNamed(context, '/register');
 
 
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        displaySnackBar('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        displaySnackBar('The account already exists for that email.');
-      }
+    // } on FirebaseAuthException catch (e) {
+    //   if (e.code == 'weak-password') {
+    //     displaySnackBar('The password provided is too weak.');
+    //   } else if (e.code == 'email-already-in-use') {
+    //     displaySnackBar('The account already exists for that email.');
+    //   }
     } catch (e) {
+      Navigator.pop(context);
       displaySnackBar(e.toString());
     }
 
+  }
+
+  showLoaderDialog(BuildContext context){
+    AlertDialog alert=AlertDialog(
+      content: Row(
+        children: [
+
+          CircularProgressIndicator(),
+          Container(margin: EdgeInsets.only(left: 20),child:Text("Loading...",
+            style: TextStyle(fontSize: 16,),
+            textAlign: TextAlign.right,
+
+          )),
+        ],),
+    );
+    showDialog(barrierDismissible: false,
+      context:context,
+      builder:(BuildContext context){
+        return alert;
+      },
+    );
   }
 
   void displaySnackBar(String s) {

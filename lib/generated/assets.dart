@@ -2,9 +2,18 @@
 class Assets {
   Assets._();
 
+  static const String assetsBaby = 'assets/baby.png';
   static const String assetsBackground = 'assets/background.png';
   static const String assetsFeatures = 'assets/features.json';
+  static const String assetsFragnence = 'assets/fragnence.png';
+  static const String assetsFrameGetStarted = 'assets/frame_get_started.png';
+  static const String assetsHealth = 'assets/health.png';
+  static const String assetsHouseholds = 'assets/households.png';
   static const String assetsJsonfile = 'assets/jsonfile.json';
+  static const String assetsOndcGetStarted = 'assets/ondc_get_started.png';
+  static const String assetsOndcIcon = 'assets/ondc_icon.png';
+  static const String assetsOther = 'assets/other.png';
+  static const String assetsPersonal = 'assets/personal.png';
   static const String assetsProperty 1=Confectionery = 'assets/Property 1=Confectionery.png';
   static const String assetsProperty 1=Home Fragrance = 'assets/Property 1=Home Fragrance.png';
   static const String assetsProperty 1=baby care = 'assets/Property 1=baby care.png';
@@ -24,5 +33,8 @@ class Assets {
   static const String assetsProperty 1=toothpaste = 'assets/Property 1=toothpaste.png';
   static const String assetsProperty 1=vegetable = 'assets/Property 1=vegetable.png';
   static const String assetsResnet50 = 'assets/resnet50.tflite';
+  static const String assetsSignIn = 'assets/sign_in.png';
+  static const String assetsSignUp = 'assets/sign_up.png';
+  static const String assetsToothpaste = 'assets/toothpaste.png';
 
 }
