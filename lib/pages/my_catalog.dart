@@ -9,20 +9,24 @@ class MyCatalog extends StatefulWidget {
 }
 
 class _MyCatalogState extends State<MyCatalog> {
-  String category='';
+  String category = '';
+
   @override
   Widget build(BuildContext context) {
     category = (ModalRoute.of(context)?.settings.arguments as Map)['data'];
     return Scaffold(
+      backgroundColor: Colors.grey[800],
       appBar: AppBar(
-    title: Text('$category'),
+        title: Text(
+          '$category',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.grey[850],
         centerTitle: true,
       ),
-
-      body: ListView(children: [
-        CatalogCard(),
-        CatalogCard()
-      ]),
+      body: ListView(
+        children: [CatalogCard(),CatalogCard()],
+      )
     );
   }
 }
