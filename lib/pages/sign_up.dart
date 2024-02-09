@@ -58,7 +58,7 @@ class _SignUpState extends State<SignUp> {
                 //     color: Colors.white,
                 //   ),
                 // )
-                child: Image.asset('assets/sign_in.png'),
+                child: Image.asset('assets/sign_up.png'),
 
               ),
 
