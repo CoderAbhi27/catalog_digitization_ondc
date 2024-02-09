@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io';
 import 'dart:ui';
+import 'package:catalog_digitization_ondc/ML/image_detection.dart';
 import 'package:flutter/services.dart';
 import 'package:tflite_flutter/tflite_flutter.dart' as tfl;
 //import 'package:firebase_ml_model_downloader/firebase_ml_model_downloader.dart';
@@ -56,7 +57,36 @@ class _CategoryCatalogState extends State<CategoryCatalog> {
     }
   }
 
-  Future<void> getData(File image) async {
+  Widget myCard(Map data) {
+    return InkWell(
+      onTap: (){
+        data['imagePath'] = imagePath;
+        Navigator.pushNamed(context, '/add_item_form', arguments: data);
+      },
+      child: Card(
+        child: SizedBox(
+          height: 100.0,
+          width: double.infinity,
+        ),
+        color: Colors.grey[900],
+      ),
+
+    );
+  }
+
+  Future<void> getData(File file) async {
+    final ob = ImageDetection(file);
+    await ob.fetchDataSet();
+    await ob.fetchFeatures();
+    print(ob.features.length);
+    dataList = await ob.predictionList();
+    print(dataList);
+    setState(() {
+
+    });
+  }
+
+  /*Future<void> getData(File image) async {
     //get data from ML model using image File
    final interpreter = await tfl.Interpreter.fromAsset('assets/resnet50.tflite');
    // final interpreter = await Interpreter.fromAsset('resnet50.tflite');
@@ -78,7 +108,7 @@ class _CategoryCatalogState extends State<CategoryCatalog> {
     print(output.shape);
 
 
-    // await getActualData(output[0] as List<double>);
+    await getActualData(output[0]);
     print("loda");
 
   //  final isolateInterpreter = await tfl.IsolateInterpreter.create(address: interpreter.address);
@@ -122,22 +152,7 @@ class _CategoryCatalogState extends State<CategoryCatalog> {
     return imageArray;
   }
 
-  Widget myCard(Map data) {
-    return InkWell(
-      onTap: (){
-        data['imagePath'] = imagePath;
-        Navigator.pushNamed(context, '/add_item_form', arguments: data);
-      },
-      child: Card(
-        child: SizedBox(
-          height: 100.0,
-          width: double.infinity,
-        ),
-        color: Colors.grey[900],
-      ),
 
-    );
-  }
 
   Future<List<List>> readJson() async {
 
@@ -174,14 +189,14 @@ class _CategoryCatalogState extends State<CategoryCatalog> {
       // dataList.add();
     }
 
-  }
+  }*/
 
 
 
 }
 
-class Pair {
+/*class Pair {
   final double dist;
   final int index;
   Pair(this.dist, this.index);
-}
+}*/
