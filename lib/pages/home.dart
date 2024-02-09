@@ -82,10 +82,7 @@ class _HomeState extends State<Home> {
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.black,
       ),
-      body: IndexedStack(
-        children: widgetList,
-        index: myIndex,
-      ),
+      body: widgetList[myIndex],
       backgroundColor: Colors.grey[800],
     );
   }
