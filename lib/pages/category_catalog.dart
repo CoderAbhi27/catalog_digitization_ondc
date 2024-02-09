@@ -77,19 +77,23 @@ class _CategoryCatalogState extends State<CategoryCatalog> {
                 ),
                 Expanded(
                     flex: 4,
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          row("SKU ID    ", data['id'].toString()),
-                          row("Name      ", data['name']),
-                          // row("Brand      ","Kellogs"),
-                          row("Price       ", data['price'].toString()),
-                          row("Category", data['Category']),
-                          // row("Color       ","Red"),
-                          // row("Weight    ","10 g"),
-                          // row("Count      ","8")
-                        ]
+                    child: Container(
+                      margin: EdgeInsets.fromLTRB(5,0,0,0),
+                      child: Column(
+
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            row("SKU ID    ", data['id'].toString()),
+                            row("Name      ", data['name']),
+                            // row("Brand      ","Kellogs"),
+                            row("Price       ", data['price'].toString()),
+                            row("Category", data['Category']),
+                            // row("Color       ","Red"),
+                            // row("Weight    ","10 g"),
+                            // row("Count      ","8")
+                          ]
+                      ),
                     )
                 )
               ],
@@ -103,12 +107,16 @@ class _CategoryCatalogState extends State<CategoryCatalog> {
       children: [
         Text(
           '$a',
-          style: TextStyle(fontWeight: FontWeight.bold),
+
         ),
-        Padding(padding: EdgeInsets.all(5)),
+        Padding(padding: EdgeInsets.all(2)),
         Text(':'),
-        Padding(padding: EdgeInsets.all(5)),
-        Text('$b'),
+        Padding(padding: EdgeInsets.all(2)),
+        Text('$b',
+          style: TextStyle(fontWeight: FontWeight.bold),
+       overflow: TextOverflow.ellipsis,
+     //   maxLines: 2,
+      ),
       ],
     );
   }

@@ -58,7 +58,7 @@ class _MyShopState extends State<MyShop> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.grey[800],
+        backgroundColor: Colors.black,
         body: Container(
           // padding: EdgeInsets.all(10.0),
           // margin: EdgeInsets.all(10.0),

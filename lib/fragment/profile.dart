@@ -51,11 +51,12 @@ class _ProfileState extends State<Profile> {
     return !isFetched ? LoadingWidget() :
     Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey[800],
+        backgroundColor: Colors.grey[850],
         title: Center(
           child: const Text('Profile',
           style: TextStyle(
-            color: Colors.white
+            color: Colors.white,
+            // fontSize: 30,
           ),),
         ),
       ),
@@ -201,7 +202,7 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                 ),
-                Divider(),
+                Divider(indent: 15,endIndent: 15,),
                 ListTile(
                   title: Text(
                     'Shop Name',
@@ -218,7 +219,7 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                 ),
-                Divider(),
+                Divider(indent: 15,endIndent: 15,),
                 ListTile(
                   title: Text(
                     'Shop Address',

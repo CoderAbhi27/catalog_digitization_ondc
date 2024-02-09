@@ -80,10 +80,10 @@ class _HomeState extends State<Home> {
         showUnselectedLabels: false,
         backgroundColor: Colors.grey[850],
         selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.black,
+        unselectedItemColor: Colors.grey,
       ),
       body: widgetList[myIndex],
-      backgroundColor: Colors.grey[800],
+      backgroundColor: Colors.black,
     );
   }
 }

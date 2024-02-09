@@ -60,12 +60,14 @@ class _CatalogCardState extends State<CatalogCard> {
       children: [
         Text(
           '$a',
-          style: TextStyle(fontWeight: FontWeight.bold),
+
         ),
         Padding(padding: EdgeInsets.all(5)),
         Text(':'),
         Padding(padding: EdgeInsets.all(5)),
-        Text('$b'),
+        Text('$b',
+            style: TextStyle(fontWeight: FontWeight.bold)
+        ),
       ],
     );
   }

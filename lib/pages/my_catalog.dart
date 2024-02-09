@@ -47,7 +47,7 @@ class _MyCatalogState extends State<MyCatalog> {
     }
     else {
       return Scaffold(
-          backgroundColor: Colors.grey[800],
+          backgroundColor: Colors.grey[850],
           appBar: AppBar(
             title: Text(
               '$category',
@@ -55,6 +55,7 @@ class _MyCatalogState extends State<MyCatalog> {
             ),
             backgroundColor: Colors.grey[850],
             centerTitle: true,
+            iconTheme: IconThemeData(color: Colors.white),
           ),
           body: ListView.builder(
             itemCount: dataList.length,

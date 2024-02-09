@@ -46,7 +46,7 @@ class _AddCatalogState extends State<AddCatalog> {
     )
         : Scaffold(
       body: Center(
-        child: Text('hi'),
+        child: Text(''),
       ),
     );
   }
