@@ -37,7 +37,7 @@ class _SignInState extends State<SignIn> {
             // )
         ),
         centerTitle: true,
-        backgroundColor: Colors.grey[850],
+        backgroundColor: Colors.grey[800],
       ),
       backgroundColor: Colors.grey[800],
       body: Padding(
@@ -46,16 +46,43 @@ class _SignInState extends State<SignIn> {
             children: <Widget>[
 
               Container(
-                margin: EdgeInsets.only(top: fem*70, bottom: fem*120),
+                margin: EdgeInsets.only(top: fem*20),//, bottom: fem*10),
                   alignment: Alignment.center,
                   padding: const EdgeInsets.all(10),
-                  child: const Text(
-                    'Sign in',
-                    style: TextStyle(
-                      fontSize: 50,
-                      color: Colors.white,
-                    ),
-                  )),
+                  // child: const Text(
+                  //   'Sign in',
+                  //   style: TextStyle(
+                  //     fontSize: 50,
+                  //     color: Colors.white,
+                  //   ),
+                  // )
+                child: Image.asset('assets/sign_in.png'),
+
+              ),
+              Container(
+                //alignment: Alignment.center,
+                margin: EdgeInsets.only(top: fem*5),//, bottom: fem*20),
+                child: const Text(
+                  ' SIGN IN',
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Container(
+                //alignment: Alignment.center,
+                margin: EdgeInsets.only( bottom: fem*20),
+                child: const Text(
+                  '  Please Sign in to continue',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontStyle: FontStyle.italic,
+                    color: Colors.grey,
+                  ),
+              ),
+              ),
               Container(
                 padding: const EdgeInsets.all(10),
                 child: TextField(

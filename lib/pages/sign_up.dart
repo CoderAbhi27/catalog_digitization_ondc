@@ -39,7 +39,7 @@ class _SignUpState extends State<SignUp> {
             // ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.grey[850],
+        backgroundColor: Colors.grey[800],
       ),
       backgroundColor: Colors.grey[800],
       body: Padding(
@@ -48,16 +48,44 @@ class _SignUpState extends State<SignUp> {
             children: <Widget>[
 
               Container(
-                  margin: EdgeInsets.only(top: fem*70, bottom: fem*120),
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.all(10),
-                  child: const Text(
-                    'Sign up',
-                    style: TextStyle(
-                      fontSize: 50,
-                      color: Colors.white,
-                    ),
-                  )),
+                margin: EdgeInsets.only(top: fem*5),//, bottom: fem*10),
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(10),
+                // child: const Text(
+                //   'Sign in',
+                //   style: TextStyle(
+                //     fontSize: 50,
+                //     color: Colors.white,
+                //   ),
+                // )
+                child: Image.asset('assets/sign_in.png'),
+
+              ),
+
+              Container(
+                //alignment: Alignment.center,
+                margin: EdgeInsets.only(top: fem*5),//, bottom: fem*20),
+                child: const Text(
+                  ' SIGN UP',
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Container(
+                //alignment: Alignment.center,
+                margin: EdgeInsets.only( bottom: fem*10),
+                child: const Text(
+                  '  Please Sign up to continue',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontStyle: FontStyle.italic,
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
               Container(
                 padding: const EdgeInsets.all(10),
                 child: TextField(
