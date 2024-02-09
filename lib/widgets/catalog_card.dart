@@ -27,6 +27,7 @@ class _CatalogCardState extends State<CatalogCard> {
          )
        ),
        padding: EdgeInsets.all(12.0),
+       child: SizedBox(height: 100,),
 
      )
     );

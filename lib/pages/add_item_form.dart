@@ -44,7 +44,8 @@ class _AddItemFormState extends State<AddItemForm> {
   var countController = TextEditingController();
   var descController = TextEditingController();
 
-   List<String> list = <String>[  "(Blank)","Beverages",
+   List<String> list = <String>[  "(Blank)",
+     "Beverages",
     "Snacks",
     "Desserts",
     "Groceries",
@@ -95,11 +96,13 @@ class _AddItemFormState extends State<AddItemForm> {
                 alignment: Alignment.center,
                 fit: BoxFit.scaleDown,
               ),
-              myTextField('SKU ID', skuIdController, data['skuId']),
+             myTextField('SKU ID', skuIdController, data['id'].toString()),
               Center(
                 child: DropdownMenu<String>(
+                  label: Text('Category', style: TextStyle(color: Colors.grey[350]),),
                   width: 380,
-                          initialSelection: list.first,
+                          initialSelection: 'loda',
+                  // initialSelection: list.first,
                          trailingIcon: Icon(Icons.umbrella_rounded,
                            color: Colors.white,
                          ),
@@ -115,14 +118,17 @@ class _AddItemFormState extends State<AddItemForm> {
                           }).toList(),
                         ),
               ),
-              //myTextField('Category', categoryController, data['category']),
-              myTextField('Product name', nameController, data['productName']),
+              // myTextField('Category', categoryController, data['category']),
+              // myTextField('SKU ID', skuIdController, data['id'].toString()),
+              // myTextField('Category', categoryController, data['Category']),
+              myTextField('Product name', nameController, data['name']),
               myTextField('Brand', brandController, data['brand']),
-              myTextField('Price', priceController, data['price']),
+              myTextField('Price', priceController, data['price'].toString()),
               myTextField('Color', colorController, data['color']),
               myTextField('Weight', weightController, data['weight']),
-              myTextField('Inventory count', countController, data['cost']),
+              myTextField('Inventory count', countController,''),
               myTextField('Description', descController, data['description']),
+
 
 
               Container(
@@ -219,7 +225,7 @@ class _AddItemFormState extends State<AddItemForm> {
           labelText: label,
           // icon: Icon(Icons.person),
           iconColor: Colors.white,
-          labelStyle: TextStyle(color: Colors.white),
+          labelStyle: TextStyle(color: Colors.grey[350]),
           suffixIcon: IconButton(icon: Icon(Icons.mic), onPressed: () {
             showDialog(context: context, builder: (context){
               _initSpeech();

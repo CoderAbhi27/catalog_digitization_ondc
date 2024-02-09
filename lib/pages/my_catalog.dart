@@ -9,11 +9,14 @@ class MyCatalog extends StatefulWidget {
 }
 
 class _MyCatalogState extends State<MyCatalog> {
+  String category='';
   @override
   Widget build(BuildContext context) {
+    category = (ModalRoute.of(context)?.settings.arguments as Map)['data'];
     return Scaffold(
       appBar: AppBar(
-
+    title: Text('$category'),
+        centerTitle: true,
       ),
 
       body: ListView(children: [
