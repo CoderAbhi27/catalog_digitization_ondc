@@ -24,8 +24,8 @@ void main() async {
 
   runApp(MaterialApp(
     // home: Home(),
-    initialRoute: loggedIn ? '/home' : '/get_started',
-     //initialRoute: '/home',
+   initialRoute: loggedIn ? '/home' : '/get_started',
+     //initialRoute: '/add_item_form',
 
     routes: {
       '/home' : (context) => Home(),

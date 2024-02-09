@@ -36,7 +36,7 @@ class _MyShopState extends State<MyShop> {
     "Snacks": "Property 1=snacks.png",
     "Desserts": "Property 1=desserts.png",
     "Groceries": "Property 1=grocery.png",
-    "Dairy": "Property 1=dairy.png",
+    "Dairy": "Property 1=diary.png",
     "Household": "background.png",
     "Fragrance": "Property 1=baby care.png",
     "Confectionery": "Property 1=Confectionery.png",
@@ -65,7 +65,7 @@ class _MyShopState extends State<MyShop> {
           // Create a grid with 2 columns. If you change the scrollDirection to
           // horizontal, this produces 2 rows.
           padding: EdgeInsets.all(10.0),
-          crossAxisCount: 3,
+          crossAxisCount: 2,
           // Generate 100 widgets that display their index in the List.
           children: categories.map((item){
             return CategoryCard(category: item, icon:categoryImages['$item'], onClick: (){

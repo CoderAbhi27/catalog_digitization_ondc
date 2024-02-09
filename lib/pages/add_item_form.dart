@@ -44,7 +44,26 @@ class _AddItemFormState extends State<AddItemForm> {
   var countController = TextEditingController();
   var descController = TextEditingController();
 
-
+   List<String> list = <String>[  "(Blank)","Beverages",
+    "Snacks",
+    "Desserts",
+    "Groceries",
+    "Dairy",
+    "Household",
+    "Fragrance",
+    "Confectionery",
+    "Stationery",
+    "Personal Care",
+    "Cardamom & Tulsi Toothpaste",
+    "Handwash",
+    "Baby Care",
+    "Health",
+    "Home Fragrance",
+    "Meat",
+    "N/A",
+    "Personal_Care",
+    "Pooja",
+    ];
 
   // String imgUrl='https://th.bing.com/th/id/OIP.nZ0mlqfGSlnx4w5Nr6Aw_QHaHa?rs=1&pid=ImgDetMain';
 
@@ -77,7 +96,26 @@ class _AddItemFormState extends State<AddItemForm> {
                 fit: BoxFit.scaleDown,
               ),
               myTextField('SKU ID', skuIdController, data['skuId']),
-              myTextField('Category', categoryController, data['category']),
+              Center(
+                child: DropdownMenu<String>(
+                  width: 380,
+                          initialSelection: list.first,
+                         trailingIcon: Icon(Icons.umbrella_rounded,
+                           color: Colors.white,
+                         ),
+                          textStyle: TextStyle( color: Colors.white),
+                          onSelected: (String? value) {
+                            // This is called when the user selects an item.
+                            setState(() {
+                list.first = value!;
+                            });
+                          },
+                          dropdownMenuEntries: list.map<DropdownMenuEntry<String>>((String value) {
+                            return DropdownMenuEntry<String>(value: value, label: value);
+                          }).toList(),
+                        ),
+              ),
+              //myTextField('Category', categoryController, data['category']),
               myTextField('Product name', nameController, data['productName']),
               myTextField('Brand', brandController, data['brand']),
               myTextField('Price', priceController, data['price']),
@@ -124,7 +162,18 @@ class _AddItemFormState extends State<AddItemForm> {
 
 
   void uploadItem(Map data) {
-    if(data['category']==''){
+    if(data['category']=='' ||
+        data['skuId']=='' ||
+    data['productName']=='' ||
+    data['brand']=='' ||
+    data['price']=='' ||
+    data['category']=='' ||
+    data['color']==''  ||
+    data['weight']=='' ||
+    data['inventory_count']==''  ||
+    data['description']=='' ||
+    data['imgPath'] =='')
+      {
       displaySnackBar('Please fill in all the mandatory fields!');
       return;
     }

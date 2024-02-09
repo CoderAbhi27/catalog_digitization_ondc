@@ -78,7 +78,7 @@ class _CategoryCatalogState extends State<CategoryCatalog> {
     print(output.shape);
 
 
-    await getActualData(output[0] as List<double>);
+    // await getActualData(output[0] as List<double>);
     print("loda");
 
   //  final isolateInterpreter = await tfl.IsolateInterpreter.create(address: interpreter.address);

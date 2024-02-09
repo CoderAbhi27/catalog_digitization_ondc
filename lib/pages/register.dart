@@ -148,6 +148,15 @@ class _RegisterState extends State<Register> {
 
   void uploadProfile(Map data) {
     // print(data.shopName);
+    if(data['merchantName']== '' ||
+    data['shopName']=='' ||
+    data['merchantID']=='' ||
+    data['shopAddress']=='' ||
+    data['imgUrl']=='')
+      {
+        displaySnackBar('Please fill in all the mandatory fields!');
+        return;
+      }
     String? uid = FirebaseAuth.instance.currentUser?.uid;
     if(uid==null){
       print("null uid");
