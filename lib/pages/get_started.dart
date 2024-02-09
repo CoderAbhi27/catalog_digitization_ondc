@@ -22,16 +22,16 @@ class _GetStartedState extends State<GetStarted> {
   @override
   Widget build(BuildContext context) {
 
-    double baseWidth = 390;
+    double baseWidth = 800;
     double screen_height = MediaQuery.of(context).size.height;
-    double fem = MediaQuery.of(context).size.width / baseWidth;
+    double fem = MediaQuery.of(context).size.height / baseWidth;
     double ffem = fem * 0.97;
     return Scaffold(
       backgroundColor: Colors.grey[800],
       // backgroundColor: Color(0xff272727),
       body: Container(
         // started6CD (4:882)
-        padding:  EdgeInsets.fromLTRB(34*fem, 125*fem, 34*fem, 83*fem),
+        padding:  EdgeInsets.fromLTRB(34*fem, 100*fem, 34*fem, 20*fem),
         width:  double.infinity,
         decoration:  BoxDecoration (
           color:  Color(0xff272727),
