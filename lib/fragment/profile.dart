@@ -271,7 +271,7 @@ class _ProfileState extends State<Profile> {
                       ),
                       Center(
                         child: Container(
-                          margin: EdgeInsets.fromLTRB(0, 80.0, 0, 0),
+                          margin: EdgeInsets.fromLTRB(0, 60.0, 0, 30),
                           child: TextButton.icon(
                             onPressed: () {
                               // logout();
@@ -334,7 +334,9 @@ class _ProfileState extends State<Profile> {
                               //getData();
                             },
                             icon: Icon(Icons.logout),
-                            label: Text('Logout'),
+                            label: Text('Logout',
+                              style: TextStyle(fontSize: 18),
+                            ),
                           ),
                         ),
                       ),

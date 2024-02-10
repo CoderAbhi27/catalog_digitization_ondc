@@ -135,7 +135,7 @@ class _SignInState extends State<SignIn> {
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () {
-                    //forgot password screen
+                    forgotPass();
                   },
                   child: Text('Forgot Password?  ',
                     style: TextStyle(color: Colors.grey[200]),),
@@ -245,6 +245,21 @@ class _SignInState extends State<SignIn> {
       margin: EdgeInsets.all(5),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackdemo);
+  }
+
+  Future<void> forgotPass() async {
+    if(nameController.text.isEmpty){
+      displaySnackBar('Please enter username');
+      return;
+    }
+    try{
+
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: nameController.text);
+      displaySnackBar('Password reset link sent to your email!');
+    } catch(e){
+      displaySnackBar(e.toString());
+    }
+
   }
 
 
