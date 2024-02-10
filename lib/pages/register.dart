@@ -30,7 +30,6 @@ class _RegisterState extends State<Register> {
 
   final storageReference = FirebaseStorage.instance.ref();
   late File _image;
-
   String imgUrl='https://th.bing.com/th/id/OIP.nZ0mlqfGSlnx4w5Nr6Aw_QHaHa?rs=1&pid=ImgDetMain';
 
   @override
@@ -41,20 +40,21 @@ class _RegisterState extends State<Register> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.all(10),
-            child: const Text(
-              'ONDC',
-              style: TextStyle(
-                  color: Colors.blue,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 30),
-            )),
+        // title: Container(
+        //     alignment: Alignment.center,
+        //     padding: const EdgeInsets.all(10),
+        //     child: const Text(
+        //       'ONDC',
+        //       style: TextStyle(
+        //           color: Colors.blue,
+        //           fontWeight: FontWeight.w500,
+        //           fontSize: 30),
+        //     )),
+        title: Image.asset('assets/ondc_icon.png'),
         centerTitle: true,
         backgroundColor: Colors.grey[850],
       ),
-      backgroundColor: Colors.grey[800],
+      backgroundColor: Colors.grey[850],
       body: Padding(
           padding: const EdgeInsets.all(10),
           child: ListView(
@@ -69,6 +69,7 @@ class _RegisterState extends State<Register> {
                     style: TextStyle(
                       fontSize: 32*fem,
                       color: Colors.white,
+                      fontWeight: FontWeight.bold
                     ),
                   )),
               // InkWell(
@@ -82,15 +83,12 @@ class _RegisterState extends State<Register> {
               Container(
                 margin: EdgeInsets.fromLTRB(0,0,0,30.0),
                 child: BeLabel(
-
-                  child: CircleAvatar(
-                    radius: fem*80,
-                    backgroundImage: NetworkImage(imgUrl),
-                    child: Image.network(
-                      imgUrl,
-                      fit: BoxFit.fill,
+                  child : ClipRRect(
+                    borderRadius: BorderRadius.circular(20), // Image border
+                    child: SizedBox.fromSize(
+                      size: Size.fromRadius(100), // Image radius
+                      child: Image.network(imgUrl, fit: BoxFit.contain),
                     ),
-
                   ),
                   label: ElevatedButton(onPressed: () async {
                     await getImage();
@@ -113,8 +111,8 @@ class _RegisterState extends State<Register> {
               MyTextField('Shop address', shopAddressController),
 
               Container(
-                  height: 80,
-                  padding: const EdgeInsets.fromLTRB(10, 30.0, 10, 0),
+                  height: 130,
+                  padding: const EdgeInsets.fromLTRB(10, 30.0, 10, 50),
                   child: ElevatedButton(
                     child: const Text('REGISTER', style: TextStyle(fontSize: 20.0)),
                     onPressed: () {
@@ -170,8 +168,8 @@ class _RegisterState extends State<Register> {
     if(data['merchantName']== '' ||
     data['shopName']=='' ||
     data['merchantID']=='' ||
-    data['shopAddress']=='' ||
-    data['imgUrl']=='')
+    data['shopAddress']==''
+    )
       {
         displaySnackBar('Please fill in all the mandatory fields!');
         return;
@@ -181,9 +179,11 @@ class _RegisterState extends State<Register> {
       print("null uid");
       return;
     }
+    showLoaderDialog(context);
     final dbref = FirebaseDatabase.instance.ref('profile');
     try{
       dbref.child(uid).set(data);
+      Navigator.pop(context);
       displaySnackBar('Registered successfully!');
       Navigator.pushReplacementNamed(context, '/home');
     } catch(e){
@@ -191,6 +191,27 @@ class _RegisterState extends State<Register> {
     }
   }
 
+
+  showLoaderDialog(BuildContext context){
+    AlertDialog alert=AlertDialog(
+      content: Row(
+        children: [
+
+          CircularProgressIndicator(),
+          Container(margin: EdgeInsets.only(left: 20),child:Text("Loading...",
+            style: TextStyle(fontSize: 16,),
+            textAlign: TextAlign.right,
+
+          )),
+        ],),
+    );
+    showDialog(barrierDismissible: false,
+      context:context,
+      builder:(BuildContext context){
+        return alert;
+      },
+    );
+  }
 
   void displaySnackBar(String s) {
     var snackdemo = SnackBar(

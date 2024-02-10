@@ -39,9 +39,9 @@ class _SignUpState extends State<SignUp> {
             // ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.grey[800],
+        backgroundColor: Colors.grey[850],
       ),
-      backgroundColor: Colors.grey[800],
+      backgroundColor: Colors.grey[850],
       body: Padding(
           padding: const EdgeInsets.all(10),
           child: ListView(
@@ -176,7 +176,7 @@ class _SignUpState extends State<SignUp> {
                 children: <Widget>[
                   Container(
                     // height: 40.0,
-                    padding: EdgeInsets.only(top: 10.5),
+                    padding: EdgeInsets.only(top: 10.5, bottom: 30),
                     child: const Text('Already have an account?',
                       style: TextStyle(color: Colors.white),),
                   ),
@@ -245,7 +245,7 @@ class _SignUpState extends State<SignUp> {
         children: [
 
           CircularProgressIndicator(),
-          Container(margin: EdgeInsets.only(left: 20),child:Text("Loading...",
+          Container(margin: EdgeInsets.only(left: 20),child:Text("Signing up...",
             style: TextStyle(fontSize: 16,),
             textAlign: TextAlign.right,
 

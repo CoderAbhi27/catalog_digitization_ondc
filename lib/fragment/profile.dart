@@ -13,6 +13,8 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   bool isFetched = false;
   Map data = {};
+  String noProfileUrl='https://th.bing.com/th/id/OIP.nZ0mlqfGSlnx4w5Nr6Aw_QHaHa?rs=1&pid=ImgDetMain';
+
 
   void getData() async {
     var userId = FirebaseAuth.instance.currentUser?.uid.toString();
@@ -22,12 +24,21 @@ class _ProfileState extends State<Profile> {
       // print(snapshot.value.toString());
       data = snapshot.value as Map;
       print(data['imgUrl']);
-      setState(() {
-        isFetched = true;
-      });
+
     } else {
+      data = {
+        'imgUrl' : noProfileUrl,
+        'merchantID' : '(not registered)',
+        'merchantName' : 'Unknown',
+        'shopAddress' : 'Unknown',
+        'shopName' : 'Unknown',
+
+      };
       print('No data available.');
     }
+    setState(() {
+      isFetched = true;
+    });
   }
 
   @override

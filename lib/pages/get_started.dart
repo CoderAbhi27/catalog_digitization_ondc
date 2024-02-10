@@ -27,7 +27,7 @@ class _GetStartedState extends State<GetStarted> {
     double fem = MediaQuery.of(context).size.height / baseWidth;
     double ffem = fem * 0.97;
     return Scaffold(
-      backgroundColor: Colors.grey[800],
+      backgroundColor: Colors.grey[850],
       // backgroundColor: Color(0xff272727),
       body: Container(
         // started6CD (4:882)
