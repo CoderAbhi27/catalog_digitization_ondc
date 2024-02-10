@@ -157,9 +157,9 @@ class _CategoryCatalogState extends State<CategoryCatalog> {
     await ob.fetchFeatures();
     print(ob.features.length);
     dataList = await ob.predictionList();
+    for(var data in dataList) data['name'] = data['description'];
     print(dataList);
     setState(() {});
   }
-
 
 }
