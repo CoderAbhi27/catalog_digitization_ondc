@@ -14,6 +14,7 @@ class AddItemForm extends StatefulWidget {
 
 class _AddItemFormState extends State<AddItemForm> {
   DatabaseReference ref = FirebaseDatabase.instance.ref();
+
   // final stt.SpeechToText _speechToText = stt.SpeechToText();
 
   Map data = {};
@@ -40,7 +41,7 @@ class _AddItemFormState extends State<AddItemForm> {
   var descController = TextEditingController();
 
   List<String> list = <String>[
-    "Other",
+
     "Beverages",
     "Snacks",
     "Desserts",
@@ -60,12 +61,13 @@ class _AddItemFormState extends State<AddItemForm> {
     // "N/A",
     // "Personal_Care",
     "Pooja",
+    "Other",
   ];
 
   final storageReference = FirebaseStorage.instance.ref();
   String imgUrl = '';
 
-  String category='(blank)';
+  String category = '(blank)';
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +77,9 @@ class _AddItemFormState extends State<AddItemForm> {
     double fem = MediaQuery.of(context).size.width / baseWidth;
     return Scaffold(
       appBar: AppBar(
-        title: SizedBox(height: 5,),
+        title: SizedBox(
+          height: 5,
+        ),
         iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: Colors.grey[850],
       ),
@@ -96,7 +100,7 @@ class _AddItemFormState extends State<AddItemForm> {
                   )),
               Container(
                 // width: 10*fem,
-                height: 300*fem,
+                height: 300 * fem,
                 padding: EdgeInsets.fromLTRB(40, 0, 40, 15),
                 child: ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -107,13 +111,13 @@ class _AddItemFormState extends State<AddItemForm> {
                   ),
                 ),
               ),
-              myTextField('SKU ID', skuIdController, data['id'].toString()),
+              myTextField('SKU ID', skuIdController, 'id'),
               Container(
                 padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
                 child: DropdownMenu<String>(
                   controller: categoryController,
-                  menuHeight: 400*fem,
-                  width: 346*fem,
+                  menuHeight: 400 * fem,
+                  width: 346 * fem,
                   label: Text(
                     'Category',
                     style: TextStyle(color: Colors.grey[350]),
@@ -142,17 +146,15 @@ class _AddItemFormState extends State<AddItemForm> {
               // myTextField('Category', categoryController, data['category']),
               // myTextField('SKU ID', skuIdController, data['id'].toString()),
               // myTextField('Category', categoryController, data['Category']),
-              myTextField('Product name', nameController, data['name']),
-              myTextField('Brand', brandController, data['Brand Name']),
-              myTextField(
-                  'Price (₹)', priceController, data['price'].toString(),
-                  onlyNum: true),
-              myTextField('Color', colorController, data['Color']),
-              myTextField('Weight (gm)', weightController, data['weight'],
+              myTextField('Product name', nameController, 'name'),
+              myTextField('Brand', brandController, 'Brand Name'),
+              myTextField('Price (₹)', priceController, 'price', onlyNum: true),
+              myTextField('Color', colorController, 'Color'),
+              myTextField('Weight (gm)', weightController, 'weight',
                   onlyNum: true),
               myTextField('Inventory count', countController, null,
                   onlyNum: true),
-              myTextField('Description', descController, data['description']),
+              myTextField('Description', descController, 'description'),
 
               Container(
                   height: 110,
@@ -223,7 +225,10 @@ class _AddItemFormState extends State<AddItemForm> {
       return;
     }
     showLoaderDialog(context);
-    final dbref = FirebaseDatabase.instance.ref('inventory').child(uid).child(data['category']);
+    final dbref = FirebaseDatabase.instance
+        .ref('inventory')
+        .child(uid)
+        .child(data['category']);
     try {
       dbref.push().set(data);
       // print(dbref.toString());
@@ -237,39 +242,44 @@ class _AddItemFormState extends State<AddItemForm> {
     }
   }
 
-  showLoaderDialog(BuildContext context){
-    AlertDialog alert=AlertDialog(
+  showLoaderDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
       content: Row(
         children: [
-
           CircularProgressIndicator(),
-          Container(margin: EdgeInsets.only(left: 20),child:Text("Loading...",
-            style: TextStyle(fontSize: 16,),
-            textAlign: TextAlign.right,
-
-          )),
-        ],),
+          Container(
+              margin: EdgeInsets.only(left: 20),
+              child: Text(
+                "Loading...",
+                style: TextStyle(
+                  fontSize: 16,
+                ),
+                textAlign: TextAlign.right,
+              )),
+        ],
+      ),
     );
-    showDialog(barrierDismissible: false,
-      context:context,
-      builder:(BuildContext context){
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
         return alert;
       },
     );
   }
 
-  Future<void> updateCount() async{
-    var cnt=0;
-    var time='';
+  Future<void> updateCount() async {
+    var cnt = 0;
+    var time = '';
     print('no error');
     final snapshot = await ref.child("digitization").get();
     if (snapshot.exists) {
       final data = snapshot.value as Map;
       cnt = data['count'];
-      time= data['time'];
+      time = data['time'];
     } else {
-      cnt=0;
-      time='2024-01-08';
+      cnt = 0;
+      time = '2024-01-08';
       print('No data available.');
     }
     print(cnt);
@@ -282,9 +292,6 @@ class _AddItemFormState extends State<AddItemForm> {
         currentDate.month != previousDate.month ||
         currentDate.year != previousDate.year;
 
-
-
-
     if (dateChanged) {
       await ref.child('digitization').update({
         "count": 1,
@@ -292,12 +299,10 @@ class _AddItemFormState extends State<AddItemForm> {
       });
     } else {
       await ref.child('digitization').update({
-        "count": cnt+1,
+        "count": cnt + 1,
         "time": currentDate.toString(),
       });
     }
-
-
   }
 
   void displaySnackBar(String s) {
@@ -313,7 +318,10 @@ class _AddItemFormState extends State<AddItemForm> {
 
   myTextField(String label, TextEditingController controller, String? text,
       {bool onlyNum = false}) {
-    if (text != null) controller.text = text;
+    if (text != null && data[text] != null) {
+      controller.text = data[text].toString();
+      data[text] = null;
+    }
     return Container(
       padding: const EdgeInsets.all(10),
       child: TextField(
@@ -330,8 +338,8 @@ class _AddItemFormState extends State<AddItemForm> {
             labelStyle: TextStyle(color: Colors.grey[350]),
             suffixIcon: IconButton(
               icon: Icon(Icons.mic),
-              onPressed: (){
-                Navigator.pushNamed(context, '/speech').then((value){
+              onPressed: () {
+                Navigator.pushNamed(context, '/speech').then((value) {
                   controller.text = (value as Map)['text'];
                 });
               },

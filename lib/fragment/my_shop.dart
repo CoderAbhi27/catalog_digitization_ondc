@@ -12,7 +12,7 @@ class MyShop extends StatefulWidget {
 
 class _MyShopState extends State<MyShop> {
   List<String> categories = [
-    "Other",
+
     "Beverages",
     "Snacks",
     "Desserts",
@@ -32,6 +32,7 @@ class _MyShopState extends State<MyShop> {
     // "N/A",
     // "Personal_Care",
     "Pooja",
+    "Other",
   ];
   Map<String, String> categoryImages = {
     "Beverages": "Property 1=beverage.png",
