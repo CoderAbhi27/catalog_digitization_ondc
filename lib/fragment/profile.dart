@@ -37,6 +37,8 @@ class _ProfileState extends State<Profile> {
   }
   @override
   Widget build(BuildContext context) {
+    String? s= FirebaseAuth.instance.currentUser?.email.toString();
+   // s= s?.substring(0,s.indexOf('@'));
     // return Scaffold(
     //   body: Center(
     //     child: ElevatedButton.icon(onPressed: (){
@@ -63,7 +65,7 @@ class _ProfileState extends State<Profile> {
       body: ListView(
         children: <Widget>[
           Container(
-            height: 250,
+            height: 300,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [Colors.grey, Colors.grey.shade700],
@@ -116,14 +118,24 @@ class _ProfileState extends State<Profile> {
                   style: TextStyle(
                     fontSize: 35,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: Colors.amberAccent,
                   ),
                 ),
                 Text(
-                  'ONDC Merchant',
+
+                  '${s}',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.amberAccent,
+                  ),
+                ),
+                Text(
+                  'Ondc Merchant',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
                   ),
                 ),
               ],
@@ -240,7 +252,7 @@ class _ProfileState extends State<Profile> {
       Center(
             child: Container(
               margin: EdgeInsets.fromLTRB(0,80.0,0,0),
-              child: ElevatedButton.icon(onPressed: (){
+              child: TextButton.icon(onPressed: (){
                 logout();
               //getData();
               },
