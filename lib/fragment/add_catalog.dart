@@ -126,7 +126,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
               ),
               label: Text('Gallery'),
               onPressed: () {
-                //...
+                // openGallery();
               },
               heroTag: null,
             ),
@@ -200,6 +200,23 @@ class DisplayPictureScreen extends StatelessWidget {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Container(
+        height: 90,
+        width: double.infinity,
+        padding: EdgeInsets.fromLTRB(20, 10, 20, 30),
+        child: ElevatedButton(
+          // isExtended: true,
+          onPressed: (){
+            Navigator.pushReplacementNamed(context, '/category_catalog', arguments: {
+            'imagePath' : imagePath,
+            });
+          },
+          child: Text(' CONFIRM ',
+            style: TextStyle(fontSize: 16),
+          ),
+        ),
+      ),
+
       // floatingActionButton: FloatingActionButton(
       //   // onPressed: ,
       // ),

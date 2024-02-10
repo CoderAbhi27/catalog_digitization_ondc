@@ -193,6 +193,7 @@ class _RegisterState extends State<Register> {
       updateCount();
       Navigator.pushReplacementNamed(context, '/home');
     } catch(e){
+      Navigator.pop(context);
       displaySnackBar('Failed to register!');
     }
   }

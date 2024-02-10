@@ -4,6 +4,7 @@ class Assets {
 
   static const String assetsBaby = 'assets/baby.png';
   static const String assetsBackground = 'assets/background.png';
+  static const String assetsConfirmation = 'assets/confirmation.png';
   static const String assetsFeatures = 'assets/features.json';
   static const String assetsFragnence = 'assets/fragnence.png';
   static const String assetsFrameGetStarted = 'assets/frame_get_started.png';

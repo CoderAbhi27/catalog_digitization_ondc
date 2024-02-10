@@ -218,15 +218,39 @@ class _AddItemFormState extends State<AddItemForm> {
       print("null uid");
       return;
     }
+    showLoaderDialog(context);
     final dbref = FirebaseDatabase.instance.ref('inventory').child(uid).child(data['category']);
     try {
       dbref.push().set(data);
       print(dbref.toString());
+      Navigator.pop(context);
       displaySnackBar('Registered successfully!');
       Navigator.pushReplacementNamed(context, '/home');
     } catch (e) {
+      Navigator.pop(context);
       displaySnackBar('Failed to register!');
     }
+  }
+
+  showLoaderDialog(BuildContext context){
+    AlertDialog alert=AlertDialog(
+      content: Row(
+        children: [
+
+          CircularProgressIndicator(),
+          Container(margin: EdgeInsets.only(left: 20),child:Text("Loading...",
+            style: TextStyle(fontSize: 16,),
+            textAlign: TextAlign.right,
+
+          )),
+        ],),
+    );
+    showDialog(barrierDismissible: false,
+      context:context,
+      builder:(BuildContext context){
+        return alert;
+      },
+    );
   }
 
   void displaySnackBar(String s) {
