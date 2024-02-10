@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:io';
 
 import 'package:camera/camera.dart';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
 
 class AddCatalog extends StatefulWidget {
   const AddCatalog({super.key});
@@ -16,8 +15,8 @@ class AddCatalog extends StatefulWidget {
 class _AddCatalogState extends State<AddCatalog> {
   bool isCameraInitialized = false;
   late CameraDescription firstCamera;
-  Future<void> getData() async
-  {
+
+  Future<void> getData() async {
     // Ensure that plugin services are initialized so that availableCameras()
     // can be called before runApp()
     WidgetsFlutterBinding.ensureInitialized();
@@ -30,28 +29,30 @@ class _AddCatalogState extends State<AddCatalog> {
       firstCamera = cameras.first;
       isCameraInitialized = true;
     });
-
   }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getData();
   }
+
   @override
   Widget build(BuildContext context) {
     return isCameraInitialized
         ? TakePictureScreen(
-      // Pass the appropriate camera to the TakePictureScreen widget.
-      camera: firstCamera,
-    )
+            // Pass the appropriate camera to the TakePictureScreen widget.
+            camera: firstCamera,
+          )
         : Scaffold(
-      body: Center(
-        child: Text(''),
-      ),
-    );
+            body: Center(
+              child: Text(''),
+            ),
+          );
   }
 }
+
 class TakePictureScreen extends StatefulWidget {
   const TakePictureScreen({
     super.key,
@@ -97,7 +98,9 @@ class TakePictureScreenState extends State<TakePictureScreen> {
     return Scaffold(
       // backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Center(child: const Text('Scan your product',
+        title: Center(
+            child: const Text(
+          'Scan your product',
           // style: TextStyle(color: Colors.white),
         )),
         // backgroundColor: Colors.grey[850],
@@ -105,17 +108,64 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       // You must wait until the controller is initialized before displaying the
       // camera preview. Use a FutureBuilder to display a loading spinner until the
       // controller has finished initializing.
-      body: FutureBuilder<void>(
-        future: _initializeControllerFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            // If the Future is complete, display the preview.
-            return CameraPreview(_controller);
-          } else {
-            // Otherwise, display a loading indicator.
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
+      body: Container(
+        alignment: Alignment.topCenter,
+        padding: const EdgeInsets.fromLTRB(8, 20, 8, 8),
+        child: ClipRRect(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          /*child: Container(
+            foregroundDecoration: BoxDecoration(
+              image: DecorationImage(
+                  alignment: Alignment(-.2,0),
+                  image: AssetImage('assets/frame.png'),
+                  fit: BoxFit.cover),
+            ),
+            child: FutureBuilder<void>(
+              future: _initializeControllerFuture,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  // If the Future is complete, display the preview.
+                  return CameraPreview(_controller);
+                } else {
+                  // Otherwise, display a loading indicator.
+                  return const Center(child: CircularProgressIndicator());
+                }
+              },
+            ),
+          ),*/
+          child: Stack(
+            children: [
+              FutureBuilder<void>(
+                future: _initializeControllerFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    // If the Future is complete, display the preview.
+                    return CameraPreview(_controller);
+                  } else {
+                    // Otherwise, display a loading indicator.
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                },
+              ),
+             /*Container(
+               padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+               foregroundDecoration: BoxDecoration(
+                 image: DecorationImage(
+                     // alignment: Alignment(-.2,0),
+                     image: AssetImage('assets/frame.png'),
+                     fit: BoxFit.fill),
+               ),
+             )*/
+             Positioned.fill(
+               child: Image.asset('assets/frame.png', fit: BoxFit.fill,),
+               top: 20,
+               bottom: 20,
+               left: 20,
+               right: 20,
+             )
+            ],
+          ),
+        ),
       ),
       // floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       floatingActionButton: Column(
@@ -124,7 +174,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
           children: [
             FloatingActionButton.extended(
               icon: Icon(
-                  Icons.image,
+                Icons.image,
               ),
               label: Text('Gallery'),
               onPressed: () {
@@ -136,17 +186,14 @@ class TakePictureScreenState extends State<TakePictureScreen> {
               height: 10,
             ),
             FloatingActionButton.extended(
-              icon: Icon(
-                  Icons.camera
-              ),
+              icon: Icon(Icons.camera),
               label: Text('Capture'),
-              onPressed: (){
+              onPressed: () {
                 captureImage();
               },
               heroTag: null,
             )
-          ]
-      ),
+          ]),
     );
   }
 
@@ -190,12 +237,12 @@ class TakePictureScreenState extends State<TakePictureScreen> {
         ),
       ),
     );
-
   }
 
-  Future<void> getImage() async{
-    final imagePick = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if(imagePick==null) return;
+  Future<void> getImage() async {
+    final imagePick =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (imagePick == null) return;
     _image = File(imagePick.path);
   }
 }
@@ -229,12 +276,14 @@ class DisplayPictureScreen extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(20, 10, 20, 30),
         child: ElevatedButton(
           // isExtended: true,
-          onPressed: (){
-            Navigator.pushReplacementNamed(context, '/category_catalog', arguments: {
-            'imagePath' : imagePath,
-            });
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, '/category_catalog',
+                arguments: {
+                  'imagePath': imagePath,
+                });
           },
-          child: Text(' CONFIRM ',
+          child: Text(
+            ' CONFIRM ',
             style: TextStyle(fontSize: 16),
           ),
         ),

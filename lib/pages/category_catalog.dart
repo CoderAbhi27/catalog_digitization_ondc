@@ -24,23 +24,39 @@ class _CategoryCatalogState extends State<CategoryCatalog> {
       imagePath =
           (ModalRoute.of(context)?.settings.arguments as Map)['imagePath'];
       getData(File(imagePath));
-      return LoadingWidget();
+      return const LoadingWidget();
     } else {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Select your Product'),
+          title: const Text('Select your Product'),
           centerTitle: true,
         ),
         body: Container(
-          // padding: EdgeInsets.all(10.0),
+          // padding: EdgeInsets.only(bottom: 30),
           // margin: EdgeInsets.all(10.0),
           child: ListView.builder(
+            padding: const EdgeInsets.only(bottom: 80),
             itemCount: dataList.length,
             itemBuilder: (context, index) {
               return myCard(dataList[index]);
             },
           ),
         ),
+        floatingActionButton: FloatingActionButton.extended(onPressed: (){
+          Map data={
+            'name' : '',
+            'imagePath' : imagePath,
+            'Brand Name' : '',
+            'price' : '',
+            'Color' : '',
+            'weight' : '',
+            'description' : '',
+            'id' : '',
+            'Category' : '',
+          };
+          Navigator.pushNamed(context, '/add_item_form', arguments: data);
+        }, label: const Center(child: Text('Enter manually'),),
+        icon: Icon(Icons.add),),
       );
     }
   }
@@ -145,114 +161,5 @@ class _CategoryCatalogState extends State<CategoryCatalog> {
     setState(() {});
   }
 
-/*Future<void> getData(File image) async {
-    //get data from ML model using image File
-   final interpreter = await tfl.Interpreter.fromAsset('assets/resnet50.tflite');
-   // final interpreter = await Interpreter.fromAsset('resnet50.tflite');
- //  File imageFile = File('path/to/your/image.jpg');
-   List<List<List<List<double>>>> imageArray = await getImageArray(image);
 
-   // Use the image array as needed
-   // print(imageArray);
-    // For ex: if input tensor shape [1,5] and type is float32
-    var input = imageArray;
-
-// if output tensor shape [1,2048] and type is float32
-    var output = List.filled(1*2048, 0).reshape([1,2048]);
-
-// inference
-    interpreter.run(input, output);
-
-// print the output
-    print(output.shape);
-
-
-    await getActualData(output[0]);
-    print("loda");
-
-  //  final isolateInterpreter = await tfl.IsolateInterpreter.create(address: interpreter.address);
-    await Future.delayed(Duration(seconds: 2), (){
-    });
-    dataList = [
-      {'brand' : 'loda'},
-      {},
-      {},
-    ];
-
-    setState(() {
-
-    });
-
-  }
-
-  Future<List<List<List<List<double>>>>> getImageArray(File imageFile) async {
-    // Read the image file
-    img.Image? image = img.decodeImage(await imageFile.readAsBytes());
-
-    // Resize the image to 224x224
-    image = img.copyResize(image!, width: 224, height: 224);
-
-    // Convert pixel values to floating point and normalize to range [0, 1]
-    List<List<List<List<double>>>> imageArray = [];
-    List<List<List<double>>> batch = [];
-    for (int y = 0; y < image.height; y++) {
-      List<List<double>> row = [];
-      for (int x = 0; x < image.width; x++) {
-        int pixel = image.getPixel(x, y);
-        double red = (img.getRed(pixel)).toDouble();
-        double green = (img.getGreen(pixel)).toDouble();
-        double blue = (img.getBlue(pixel)).toDouble();
-        row.add([red, green, blue]);
-      }
-      batch.add(row);
-    }
-    imageArray.add(batch);
-
-    return imageArray;
-  }
-
-
-
-  Future<List<List>> readJson() async {
-
-    final String response = await rootBundle.loadString('assets/jsonfile.json');
-    final data = await json.decode(response);
-    List<List> lst=[];
-    data.forEach((k, v) => lst.add(v));
-    return lst;
-
-    // _items = data["items"];
-  }
-
-  Future<void> getActualData(List output) async {
-    var dataSet = await readJson();
-
-    print('output - ${output}');
-    print('dataset shape ${dataSet.shape}');
-
-    List<Pair> skus=[];
-
-    for(int i=0;i<dataSet.length;i++){
-      double d=0;
-      for(int j=0;j<output.length;j++){
-        d+=(dataSet[i][j]-output[j])*(dataSet[i][j]-output[j]);
-      }
-      skus.add(Pair(d, i));
-    }
-
-    skus.sort((a, b) => a.dist.compareTo(b.dist));
-
-    for(int i=0;i<5;i++){
-      int ind = skus[i].index;
-      print(ind);
-      // dataList.add();
-    }
-
-  }*/
 }
-
-/*class Pair {
-  final double dist;
-  final int index;
-  Pair(this.dist, this.index);
-}*/

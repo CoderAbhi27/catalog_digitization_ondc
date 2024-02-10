@@ -1,8 +1,5 @@
-// import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
-import 'package:speech_to_text/speech_to_text.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class SpeechToText extends StatefulWidget {
@@ -14,7 +11,7 @@ class SpeechToText extends StatefulWidget {
 
 class _SpeechToTextState extends State<SpeechToText> {
   final stt.SpeechToText _speechToText = stt.SpeechToText();
-  bool _speechEnabled = true;
+  bool _speechEnabled = false;
   String _lastWords = '';
   @override
   void initState() {

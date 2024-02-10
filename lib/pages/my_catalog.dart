@@ -14,16 +14,16 @@ class MyCatalog extends StatefulWidget {
 class _MyCatalogState extends State<MyCatalog> {
   String category = '';
   bool isFetched = false;
-  List<Map> dataList=[];
-  void getData() async
-  {
+  List<Map> dataList = [];
+
+  void getData() async {
     var userId = FirebaseAuth.instance.currentUser?.uid.toString();
     final ref = FirebaseDatabase.instance.ref();
     final snapshot = await ref.child('inventory/$userId/$category').get();
     if (snapshot.exists) {
       // print(snapshot.value.toString());
       final dataMap = snapshot.value as Map;
-      dataList=[];
+      dataList = [];
       dataMap.forEach((key, value) {
         dataList.add(value);
       });
@@ -40,12 +40,14 @@ class _MyCatalogState extends State<MyCatalog> {
 
   @override
   Widget build(BuildContext context) {
-    category = (ModalRoute.of(context)?.settings.arguments as Map)['data'];
-    if(!isFetched){
+    category = (ModalRoute
+        .of(context)
+        ?.settings
+        .arguments as Map)['data'];
+    if (!isFetched) {
       getData();
       return const LoadingWidget();
-    }
-    else {
+    } else {
       return Scaffold(
           backgroundColor: Colors.grey[850],
           appBar: AppBar(
@@ -57,13 +59,21 @@ class _MyCatalogState extends State<MyCatalog> {
             centerTitle: true,
             iconTheme: IconThemeData(color: Colors.white),
           ),
-          body: ListView.builder(
+          body: dataList.isEmpty
+              ? Center(
+              child: Text(
+                '(No items)',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                ),
+              ))
+              : ListView.builder(
             itemCount: dataList.length,
-            itemBuilder: (context, index){
+            itemBuilder: (context, index) {
               return CatalogCard(dataList[index]);
             },
-          )
-      );
+          ));
     }
   }
 }

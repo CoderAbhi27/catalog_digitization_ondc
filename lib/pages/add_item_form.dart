@@ -4,8 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:speech_to_text/speech_recognition_result.dart';
-import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class AddItemForm extends StatefulWidget {
   const AddItemForm({super.key});
@@ -16,9 +14,7 @@ class AddItemForm extends StatefulWidget {
 
 class _AddItemFormState extends State<AddItemForm> {
   DatabaseReference ref = FirebaseDatabase.instance.ref();
-  final stt.SpeechToText _speechToText = stt.SpeechToText();
-  bool _speechEnabled = false;
-  String _lastWords = '';
+  // final stt.SpeechToText _speechToText = stt.SpeechToText();
 
   Map data = {};
 
@@ -66,8 +62,6 @@ class _AddItemFormState extends State<AddItemForm> {
     "Pooja",
   ];
 
-  // String imgUrl='https://th.bing.com/th/id/OIP.nZ0mlqfGSlnx4w5Nr6Aw_QHaHa?rs=1&pid=ImgDetMain';
-
   final storageReference = FirebaseStorage.instance.ref();
   String imgUrl = '';
 
@@ -80,12 +74,17 @@ class _AddItemFormState extends State<AddItemForm> {
     double baseWidth = 390;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     return Scaffold(
+      appBar: AppBar(
+        title: SizedBox(height: 5,),
+        iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor: Colors.grey[850],
+      ),
       body: Padding(
           padding: const EdgeInsets.all(10),
           child: ListView(
             children: <Widget>[
               Container(
-                  margin: EdgeInsets.only(top: fem * 30, bottom: fem * 20),
+                  margin: EdgeInsets.only(top: fem * 0, bottom: fem * 20),
                   alignment: Alignment.center,
                   padding: const EdgeInsets.all(10),
                   child: const Text(
@@ -183,7 +182,7 @@ class _AddItemFormState extends State<AddItemForm> {
                   )),
             ],
           )),
-      backgroundColor: Colors.grey[800],
+      backgroundColor: Colors.grey[850],
     );
   }
 
@@ -336,106 +335,9 @@ class _AddItemFormState extends State<AddItemForm> {
                   controller.text = (value as Map)['text'];
                 });
               },
-              /*onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      _initSpeech();
-                      return AlertDialog(
-                        title: Text('Speak...'),
-                        content: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Expanded(
-                                flex: 1,
-                                child: Container(
-                                  padding: EdgeInsets.all(4),
-                                  child: Text(
-                                    'Tap the microphone for listening...',
-                                    style: TextStyle(fontSize: 20.0),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: Container(
-                                  padding: EdgeInsets.all(10),
-                                  child: Text(
-                                    // If listening is active show the recognized words
-                                    _speechToText.isListening
-                                        ? '$_lastWords'
-                                        // If listening isn't active but could be tell the user
-                                        // how to start it, otherwise indicate that speech
-                                        // recognition is not yet ready or not supported on
-                                        // the target device
-                                        : _speechEnabled
-                                            ? '$_lastWords'
-                                            : 'Speech not available',
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        actions: <Widget>[
-                          // TextButton(
-                          //   onPressed: () => Navigator.pop(context, 'Cancel'),
-                          //   child: const Text('Cancel'),
-                          // ),
-                          IconButton(
-                            onPressed:
-                                // If not yet listening for speech start, otherwise stop
-                                _speechToText.isNotListening
-                                    ? _startListening
-                                    : _stopListening,
-                            tooltip: 'Listen',
-                            icon: Icon(_speechToText.isNotListening
-                                ? Icons.mic_off
-                                : Icons.mic),
-                          ),
-
-                          TextButton(
-                            onPressed: () => Navigator.pop(
-                                context, {'title': '$_lastWords'}),
-                            child: const Text('OK'),
-                          ),
-                        ],
-                      );
-                    });
-              },*/
             ),
             suffixIconColor: Colors.white),
       ),
     );
-  }
-
-  void _initSpeech() async {
-    //_speechToText.toString();
-    _speechEnabled = await _speechToText.initialize();
-    setState(() {});
-  }
-
-  /// Each time to start a speech recognition session
-  void _startListening() async {
-    await _speechToText.listen(onResult: _onSpeechResult);
-    setState(() {});
-  }
-
-  /// Manually stop the active speech recognition session
-  /// Note that there are also timeouts that each platform enforces
-  /// and the SpeechToText plugin supports setting timeouts on the
-  /// listen method.
-  void _stopListening() async {
-    await _speechToText.stop();
-    setState(() {});
-  }
-
-  /// This is the callback that the SpeechToText plugin calls when
-  /// the platform returns recognized words.
-  void _onSpeechResult(SpeechRecognitionResult result) {
-    setState(() {
-      _lastWords = result.recognizedWords;
-    });
   }
 }

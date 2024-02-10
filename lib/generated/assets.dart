@@ -7,6 +7,7 @@ class Assets {
   static const String assetsConfirmation = 'assets/confirmation.png';
   static const String assetsFeatures = 'assets/features.json';
   static const String assetsFragnence = 'assets/fragnence.png';
+  static const String assetsFrame = 'assets/frame.png';
   static const String assetsFrameGetStarted = 'assets/frame_get_started.png';
   static const String assetsHealth = 'assets/health.png';
   static const String assetsHouseholds = 'assets/households.png';
