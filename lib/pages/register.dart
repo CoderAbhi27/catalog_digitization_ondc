@@ -29,6 +29,7 @@ class _RegisterState extends State<Register> {
   var shopAddressController = TextEditingController();
 
   final storageReference = FirebaseStorage.instance.ref();
+
   late File _image;
   String imgUrl='https://th.bing.com/th/id/OIP.nZ0mlqfGSlnx4w5Nr6Aw_QHaHa?rs=1&pid=ImgDetMain';
 
@@ -125,6 +126,7 @@ class _RegisterState extends State<Register> {
                       };
                       // final data = ProfileDataClass(merchantName: nameController.text, shopName: shopNameController.text, merchantID: merchantIDController.text, shopAddress: shopAddressController.text, profilePicUrl: imgUrl);
                       uploadProfile(data);
+
                       // String pass = passwordController.text;
                       // signIn(name, pass);
                     },
@@ -137,6 +139,9 @@ class _RegisterState extends State<Register> {
   }
 
 
+  void updateCount(){
+
+  }
   Future<void> getImage() async{
     final imagePick = await ImagePicker().pickImage(source: ImageSource.gallery);
     if(imagePick==null) return;
@@ -185,6 +190,7 @@ class _RegisterState extends State<Register> {
       dbref.child(uid).set(data);
       Navigator.pop(context);
       displaySnackBar('Registered successfully!');
+      updateCount();
       Navigator.pushReplacementNamed(context, '/home');
     } catch(e){
       displaySnackBar('Failed to register!');
