@@ -56,8 +56,7 @@ class _CategoryCatalogState extends State<CategoryCatalog> {
           clipBehavior: Clip.antiAlias,
           shadowColor: Colors.amber,
           elevation: 10,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           child: Container(
             decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -66,39 +65,53 @@ class _CategoryCatalogState extends State<CategoryCatalog> {
               end: Alignment.bottomRight,
             )),
             padding: EdgeInsets.all(12.0),
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: CircleAvatar(
-                    radius: 50,
-                    backgroundImage: AssetImage('dataset_images/${data['image']}'),
-                  ),
-                ),
-                Expanded(
-                    flex: 4,
-                    child: Container(
-                      margin: EdgeInsets.fromLTRB(5,0,0,0),
-                      child: Column(
 
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            row("SKU ID    ", data['id'].toString()),
-                            row("Name      ", data['name']),
-                            // row("Brand      ","Kellogs"),
-                            row("Price       ", data['price'].toString()),
-                            row("Category", data['Category']),
-                            // row("Color       ","Red"),
-                            // row("Weight    ","10 g"),
-                            // row("Count      ","8")
-                          ]
+                  child: Row(
+                    children: [
+
+                      Expanded(
+                        flex: 2,
+                        child: CircleAvatar(
+                          radius: 50,
+                          backgroundImage: AssetImage('dataset_images/${data['image']}'),
+                        ),
                       ),
-                    )
-                )
-              ],
-            ),
-          )),
+                      Expanded(
+                          flex: 4,
+                          child: Container(
+                            margin: EdgeInsets.fromLTRB(5,0,0,0),
+                            child: Column(
+
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Center(child: Text(data['name'],
+
+                                  style: TextStyle(fontWeight: FontWeight.bold,
+                                  //fontSize: 20,
+                                  color: Colors.amberAccent),
+
+                                      //overflow: TextOverflow.ellipsis,
+                                   )
+                                ),
+                                  row("SKU ID    ", data['id'].toString()),
+                                  // row("Name      ", data['name']),
+                                  // row("Brand      ","Kellogs"),
+                                  row("Price       ", data['price'].toString()),
+                                  row("Category", data['Category']),
+                                  // row("Color       ","Red"),
+                                  // row("Weight    ","10 g"),
+                                  // row("Count      ","8")
+                                ]
+                            ),
+                          ),
+                      ),
+                    ],
+                  ),
+
+
+          ),
+      ),
     );
   }
 
@@ -112,11 +125,14 @@ class _CategoryCatalogState extends State<CategoryCatalog> {
         Padding(padding: EdgeInsets.all(2)),
         Text(':'),
         Padding(padding: EdgeInsets.all(2)),
-        Text('$b',
-          style: TextStyle(fontWeight: FontWeight.bold),
-       overflow: TextOverflow.ellipsis,
-     //   maxLines: 2,
-      ),
+        Expanded(
+          flex: 1,
+          child: Text('$b',
+            style: TextStyle(fontWeight: FontWeight.bold),
+                 overflow: TextOverflow.ellipsis,
+               //   maxLines: 2,
+                ),
+        ),
       ],
     );
   }
