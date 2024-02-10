@@ -349,6 +349,7 @@ class _ProfileState extends State<Profile> {
   void logout() {
     FirebaseAuth.instance.signOut();
     displaySnackBar('Logged out!');
+    Navigator.pop(context);
     Navigator.pushReplacementNamed(context, '/sign_in');
   }
 }

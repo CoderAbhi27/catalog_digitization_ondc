@@ -93,7 +93,13 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Center(child: const Text('Scan your product'))),
+      // backgroundColor: Colors.black,
+      appBar: AppBar(
+        title: Center(child: const Text('Scan your product',
+          // style: TextStyle(color: Colors.white),
+        )),
+        // backgroundColor: Colors.grey[850],
+      ),
       // You must wait until the controller is initialized before displaying the
       // camera preview. Use a FutureBuilder to display a loading spinner until the
       // controller has finished initializing.
@@ -109,40 +115,66 @@ class TakePictureScreenState extends State<TakePictureScreen> {
           }
         },
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        label: Text('Capture Image'),
-        // Provide an onPressed callback.
-        onPressed: () async {
-          // Take the Picture in a try / catch block. If anything goes wrong,
-          // catch the error.
-          try {
-            // Ensure that the camera is initialized.
-            await _initializeControllerFuture;
-
-            // Attempt to take a picture and get the file image
-            // where it was saved.
-            final image = await _controller.takePicture();
-
-            if (!mounted) return;
-
-            // If the picture was taken, display it on a new screen.
-            await Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => DisplayPictureScreen(
-                  // Pass the automatically generated path to
-                  // the DisplayPictureScreen widget.
-                  imagePath: image.path,
-                ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      floatingActionButton: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            FloatingActionButton.extended(
+              icon: Icon(
+                  Icons.image,
               ),
-            );
-          } catch (e) {
-            // If an error occurs, log the error to the console.
-            print(e);
-          }
-        },
-        icon: const Icon(Icons.camera_alt),
+              label: Text('Gallery'),
+              onPressed: () {
+                //...
+              },
+              heroTag: null,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            FloatingActionButton.extended(
+              icon: Icon(
+                  Icons.camera
+              ),
+              label: Text('Capture'),
+              onPressed: (){
+                captureImage();
+              },
+              heroTag: null,
+            )
+          ]
       ),
     );
+  }
+
+  Future<void> captureImage() async {
+    // Take the Picture in a try / catch block. If anything goes wrong,
+    // catch the error.
+    try {
+      // Ensure that the camera is initialized.
+      await _initializeControllerFuture;
+
+      // Attempt to take a picture and get the file image
+      // where it was saved.
+      final image = await _controller.takePicture();
+
+      if (!mounted) return;
+
+      // If the picture was taken, display it on a new screen.
+      await Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => DisplayPictureScreen(
+            // Pass the automatically generated path to
+            // the DisplayPictureScreen widget.
+            imagePath: image.path,
+          ),
+        ),
+      );
+    } catch (e) {
+      // If an error occurs, log the error to the console.
+      print(e);
+    }
   }
 }
 
@@ -158,7 +190,20 @@ class DisplayPictureScreen extends StatelessWidget {
       appBar: AppBar(title: const Text('Verify the image')),
       // The image is stored as a file on the device. Use the Image.file
       // constructor with the given path to display the image.
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(8, 20, 8, 8),
+        child: ClipRRect(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+
+          // margin: const EdgeInsets.fromLTRB(10, 20, 10, 10),
+          child: Image.file(File(imagePath)),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      // floatingActionButton: FloatingActionButton(
+      //   // onPressed: ,
+      // ),
+      /*body: Center(
         child: Column(children:
         [
           Expanded(
@@ -167,8 +212,8 @@ class DisplayPictureScreen extends StatelessWidget {
           Expanded(
             flex: 1,
             child: Container(
-                height: 20,
-                padding: const EdgeInsets.fromLTRB(10, 30.0, 10, 20),
+                // height: 50,
+                padding: const EdgeInsets.fromLTRB(10, 30.0, 10, 40),
                 child: ElevatedButton(
                   child: const Text('CONFIRM', style: TextStyle(fontSize: 20.0)),
                   onPressed: () {
@@ -180,7 +225,7 @@ class DisplayPictureScreen extends StatelessWidget {
                 )
             ),
           ),] ),
-      ),
+      ),*/
     );
   }
 }
