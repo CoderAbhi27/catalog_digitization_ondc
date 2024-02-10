@@ -15,6 +15,7 @@ class AddItemForm extends StatefulWidget {
 }
 
 class _AddItemFormState extends State<AddItemForm> {
+  DatabaseReference ref = FirebaseDatabase.instance.ref();
   final stt.SpeechToText _speechToText = stt.SpeechToText();
   bool _speechEnabled = false;
   String _lastWords = '';
@@ -96,11 +97,15 @@ class _AddItemFormState extends State<AddItemForm> {
                   )),
               Container(
                 // width: 10*fem,
+                height: 300*fem,
                 padding: EdgeInsets.fromLTRB(40, 0, 40, 15),
-                child: Image(
-                  image: FileImage(File(data['imagePath'])),
-                  alignment: Alignment.center,
-                  fit: BoxFit.contain,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  child: Image(
+                    image: FileImage(File(data['imagePath'])),
+                    alignment: Alignment.center,
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
               myTextField('SKU ID', skuIdController, data['id'].toString()),
@@ -196,7 +201,7 @@ class _AddItemFormState extends State<AddItemForm> {
     }
   }
 
-  void uploadItem(Map data) {
+  Future<void> uploadItem(Map data) async {
     if (data['category'] == '' ||
             data['skuId'] == '' ||
             data['productName'] == '' ||
@@ -222,7 +227,8 @@ class _AddItemFormState extends State<AddItemForm> {
     final dbref = FirebaseDatabase.instance.ref('inventory').child(uid).child(data['category']);
     try {
       dbref.push().set(data);
-      print(dbref.toString());
+      // print(dbref.toString());
+      await updateCount();
       Navigator.pop(context);
       displaySnackBar('Registered successfully!');
       Navigator.pushReplacementNamed(context, '/home');
@@ -251,6 +257,48 @@ class _AddItemFormState extends State<AddItemForm> {
         return alert;
       },
     );
+  }
+
+  Future<void> updateCount() async{
+    var cnt=0;
+    var time='';
+    print('no error');
+    final snapshot = await ref.child("digitization").get();
+    if (snapshot.exists) {
+      final data = snapshot.value as Map;
+      cnt = data['count'];
+      time= data['time'];
+    } else {
+      cnt=0;
+      time='2024-01-08';
+      print('No data available.');
+    }
+    print(cnt);
+
+    DateTime previousDate = DateTime.parse(time);
+
+    DateTime currentDate = DateTime.now();
+
+    bool dateChanged = currentDate.day != previousDate.day ||
+        currentDate.month != previousDate.month ||
+        currentDate.year != previousDate.year;
+
+
+
+
+    if (dateChanged) {
+      await ref.child('digitization').update({
+        "count": 1,
+        "time": currentDate.toString(),
+      });
+    } else {
+      await ref.child('digitization').update({
+        "count": cnt+1,
+        "time": currentDate.toString(),
+      });
+    }
+
+
   }
 
   void displaySnackBar(String s) {

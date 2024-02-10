@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:camera/camera.dart';
+import 'package:image_picker/image_picker.dart';
 
 
 class AddCatalog extends StatefulWidget {
@@ -64,6 +65,7 @@ class TakePictureScreen extends StatefulWidget {
 }
 
 class TakePictureScreenState extends State<TakePictureScreen> {
+  late File _image;
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
 
@@ -126,7 +128,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
               ),
               label: Text('Gallery'),
               onPressed: () {
-                // openGallery();
+                openGallery();
               },
               heroTag: null,
             ),
@@ -176,6 +178,26 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       print(e);
     }
   }
+
+  Future<void> openGallery() async {
+    await getImage();
+    await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => DisplayPictureScreen(
+          // Pass the automatically generated path to
+          // the DisplayPictureScreen widget.
+          imagePath: _image.path,
+        ),
+      ),
+    );
+
+  }
+
+  Future<void> getImage() async{
+    final imagePick = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if(imagePick==null) return;
+    _image = File(imagePick.path);
+  }
 }
 
 // A widget that displays the picture taken by the user.
@@ -190,7 +212,8 @@ class DisplayPictureScreen extends StatelessWidget {
       appBar: AppBar(title: const Text('Verify the image')),
       // The image is stored as a file on the device. Use the Image.file
       // constructor with the given path to display the image.
-      body: Padding(
+      body: Container(
+        alignment: Alignment.topCenter,
         padding: const EdgeInsets.fromLTRB(8, 20, 8, 8),
         child: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(20)),

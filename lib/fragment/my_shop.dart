@@ -1,7 +1,7 @@
 import 'package:catalog_digitization_ondc/widgets/category_card.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+// import 'package:intl/intl.dart';
 
 class MyShop extends StatefulWidget {
   const MyShop({super.key});
@@ -56,28 +56,34 @@ class _MyShopState extends State<MyShop> {
     // "(Blank)": "background.png",
   };
   DatabaseReference ref = FirebaseDatabase.instance.ref();
-  var cnt=0;
-  var time='20';
-  Future<void> getData() async
-   {
+  var cnt = 0;
+  var time = 'YYYY-MM-DD';
 
-  final snapshot = await ref.child('digitization/count').get();
-  if (snapshot.exists) {
-  cnt = int.parse(snapshot.value.toString());
-  print(cnt.toString());
-  } else {
-  print('No data available.');
-  }
-  final snap = await ref.child('digitization/time').get();
-  if (snap.exists) {
-  time=snap.value.toString();
-  print('hi $time');
-  } else {
-    print('No data available.');
-  time='2024-01-08';
+  Future<void> getData() async {
+    final snapshot = await ref.child('digitization/count').get();
+    if (snapshot.exists) {
+      cnt = int.parse(snapshot.value.toString());
+      print(cnt.toString());
+    } else {
+      print('No data available.');
+    }
+    final snap = await ref.child('digitization/time').get();
+    if (snap.exists) {
+      time = snap.value.toString();
+      print('hi $time');
+    } else {
+      print('No data available.');
+      time = '2024-01-08';
+    }
+    if(time.substring(0,10)!=DateTime.now().toString().substring(0,10)){
+      cnt=0;
+      time = DateTime.now().toString();
+    }
+    setState(() {
+
+    });
   }
 
-}
   @override
   void initState() {
     // TODO: implement initState
@@ -106,7 +112,9 @@ class _MyShopState extends State<MyShop> {
                 ),
               ),
             ),
-            SizedBox(height: 15,),
+            SizedBox(
+              height: 15,
+            ),
             Expanded(
               child: Container(
                 // padding: EdgeInsets.all(10.0),
@@ -118,26 +126,30 @@ class _MyShopState extends State<MyShop> {
                   padding: EdgeInsets.all(10.0),
                   crossAxisCount: 2,
                   // Generate 100 widgets that display their index in the List.
-                  children: categories.map((item){
-                    return CategoryCard(category: item, icon:categoryImages['$item'], onClick: (){
-                      Navigator.pushNamed(context, '/my_catalog', arguments: {
-                        'data' :item,
-                      });
-                    });
+                  children: categories.map((item) {
+                    return CategoryCard(
+                        category: item,
+                        icon: categoryImages['$item'],
+                        onClick: () {
+                          Navigator.pushNamed(context, '/my_catalog',
+                              arguments: {
+                                'data': item,
+                              });
+                        });
                   }).toList(),
-              
-                    // return CategoryCard(category: 'abhi', icon: 'background.png', onClick: (){});
-                    // }
-                    // return Container(
-                    //   margin: EdgeInsets.all(10.0),
-                    //   color: Colors.white60,
-                    //   child: Center(
-                    //     child: Text(
-                    //       'Item $index',
-                    //       style: Theme.of(context).textTheme.headlineSmall,
-                    //     ),
-                    //   ),
-                    // );
+
+                  // return CategoryCard(category: 'abhi', icon: 'background.png', onClick: (){});
+                  // }
+                  // return Container(
+                  //   margin: EdgeInsets.all(10.0),
+                  //   color: Colors.white60,
+                  //   child: Center(
+                  //     child: Text(
+                  //       'Item $index',
+                  //       style: Theme.of(context).textTheme.headlineSmall,
+                  //     ),
+                  //   ),
+                  // );
                   // ),
                 ),
               ),
@@ -148,6 +160,7 @@ class _MyShopState extends State<MyShop> {
     );
   }
 }
+
 class MyCard extends StatelessWidget {
   final int count; // Count variable
   final String date; // Date variable
@@ -165,24 +178,25 @@ class MyCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             SizedBox(height: 8), // Spacer
             // Center(
             //   child:
-              Row(
-                //mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.calendar_month_sharp),
-                  SizedBox(height: 4,),
-                  Text(
-                    date, // Format the date
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.black87,
-                    ),
+            Row(
+              //mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.calendar_month_sharp),
+                SizedBox(
+                  height: 4,
+                ),
+                Text(
+                  date.substring(0,10), // Format the date
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.black87,
                   ),
-                ],
-              ),
+                ),
+              ],
+            ),
             // ),
             SizedBox(height: 16), // Spacer
             Center(
@@ -209,4 +223,3 @@ class MyCard extends StatelessWidget {
     );
   }
 }
-
