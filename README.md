@@ -1,16 +1,19 @@
 # catalog_digitization_ondc
 
-A new Flutter project.
+ONDC (Catalog Digitization)
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+An application for e-commerce merchants, Developed as part of the Build for Bharat Hackathon.
+– Addresses the challenges of manual catalog uploads on e-commerce platforms while streamlining the input process.
+– Integrated ML model, which automates detection of items (min. 1000 SKUs) in images for effortless autofilling.
+– Additional digitization features, including speech-to-text functionality with Indic language support.
 
-A few resources to get you started if this is your first Flutter project:
+Tech Stack: Flutter (Dart), Firebase (Auth, Realtime Database & Storage), Flutter Plugins (Text-to-speech,
+image_picker, camera) , Resnet50(TFLite), KNN algorithm.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Download the App
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [Google Cloud](https://storage.googleapis.com/ondc-seller-app-413913.appspot.com/ondc-catalog-digitization-terror404.apk)
+
+
